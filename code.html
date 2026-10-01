@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="web_dashboard" name="shell-type"/>
-  <title>Mentora Digital Twin OS - Student Dashboard</title>
+  <title>Mentora Digital Twin OS - Tasks &amp; Assignments</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -364,7 +364,7 @@
           </div>
 
           <!-- Card 4: Upcoming Deadlines Summary -->
-          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-sm hover:shadow-md transition-shadow cursor-pointer" onclick="scrollToElement('section-deadlines')">
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-sm hover:shadow-md transition-shadow cursor-pointer" onclick="switchView('tasks-and-assignments')">
             <div class="flex items-center justify-between">
               <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Upcoming Deadlines</span>
               <span class="p-1.5 rounded-lg bg-error/10 text-error">
@@ -380,7 +380,7 @@
             </div>
             <div class="flex items-center justify-between font-label-sm text-xs text-on-surface-variant pt-0.5">
               <span>Next: <strong class="text-on-surface">Tomorrow 11:59 PM</strong></span>
-              <span class="text-secondary font-medium">View All &darr;</span>
+              <span class="text-secondary font-medium">Open Tasks Page &rarr;</span>
             </div>
           </div>
 
@@ -407,13 +407,13 @@
             </button>
 
             <!-- Quick Action 2: Tasks & Assignments -->
-            <button onclick="openTasksModal()" class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all text-left border border-outline-variant/10 group active:scale-[0.99]">
+            <button onclick="switchView('tasks-and-assignments')" class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all text-left border border-outline-variant/10 group active:scale-[0.99]">
               <div class="p-2.5 rounded-xl bg-indigo-500/15 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-sm">
                 <span class="material-symbols-outlined text-xl">assignment_turned_in</span>
               </div>
               <div class="flex flex-col">
                 <span class="font-headline-sm text-sm font-semibold text-on-surface group-hover:text-indigo-600 transition-colors">Tasks &amp; Assignments</span>
-                <span class="font-body-sm text-xs text-on-surface-variant mt-0.5">Manage 4 deadlines &amp; lab submissions</span>
+                <span class="font-body-sm text-xs text-on-surface-variant mt-0.5">Manage deadlines, priorities &amp; statuses</span>
               </div>
             </button>
 
@@ -604,9 +604,10 @@
                     <p class="font-body-sm text-body-sm text-on-surface-variant">5 Enrolled Courses • Semester IV Curriculum</p>
                   </div>
                 </div>
-                <span class="px-2.5 py-1 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-xs font-semibold">
-                  19 Credits Enrolled
-                </span>
+                <button onclick="switchView('academics')" class="px-3 py-1.5 rounded-lg bg-secondary text-on-secondary font-label-sm text-xs font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-1">
+                  <span>Open Full Academics Hub</span>
+                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
               </div>
 
               <!-- Subject Cards Grid -->
@@ -626,7 +627,7 @@
 
                   <div class="flex flex-col gap-1 text-xs">
                     <div class="flex justify-between text-on-surface-variant">
-                      <span>Attendance: <strong>92% (34/37)</strong></span>
+                      <span>Attendance: <strong>91.9% (34/37)</strong></span>
                       <span class="text-error font-semibold">Twin Flag: AVL Trees (62%)</span>
                     </div>
                     <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
@@ -656,7 +657,7 @@
 
                   <div class="flex flex-col gap-1 text-xs">
                     <div class="flex justify-between text-on-surface-variant">
-                      <span>Attendance: <strong>88% (29/33)</strong></span>
+                      <span>Attendance: <strong>87.9% (29/33)</strong></span>
                       <span class="text-error font-semibold">Twin Flag: 3NF &amp; Index (68%)</span>
                     </div>
                     <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
@@ -686,7 +687,7 @@
 
                   <div class="flex flex-col gap-1 text-xs">
                     <div class="flex justify-between text-on-surface-variant">
-                      <span>Attendance: <strong>94% (32/34)</strong></span>
+                      <span>Attendance: <strong>94.1% (32/34)</strong></span>
                       <span class="text-on-tertiary-container font-semibold">Twin Flag: Semaphores (71%)</span>
                     </div>
                     <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
@@ -716,7 +717,7 @@
 
                   <div class="flex flex-col gap-1 text-xs">
                     <div class="flex justify-between text-on-surface-variant">
-                      <span>Attendance: <strong>96% (27/28)</strong></span>
+                      <span>Attendance: <strong>96.4% (27/28)</strong></span>
                       <span class="text-emerald-600 font-semibold">Twin Flag: High Mastery (91%)</span>
                     </div>
                     <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
@@ -772,7 +773,7 @@
                     <span class="font-body-sm text-xs text-on-surface-variant"><span id="active-deadlines-count">4</span> pending assignments</span>
                   </div>
                 </div>
-                <button onclick="openTasksModal()" class="text-xs text-secondary font-semibold hover:underline flex items-center gap-0.5">
+                <button onclick="openAddTaskModal()" class="text-xs text-secondary font-semibold hover:underline flex items-center gap-0.5">
                   <span>+ Add Task</span>
                 </button>
               </div>
@@ -811,7 +812,7 @@
                     <div class="flex items-center justify-between mt-1 text-[11px] text-on-surface-variant">
                       <span class="text-amber-700 font-medium flex items-center gap-0.5">
                         <span class="material-symbols-outlined text-xs">schedule</span>
-                        <span>Due in 3 days (Oct 2)</span>
+                        <span>Due in 3 days (Oct 4)</span>
                       </span>
                       <span>150 Pts</span>
                     </div>
@@ -830,7 +831,7 @@
                     <div class="flex items-center justify-between mt-1 text-[11px] text-on-surface-variant">
                       <span class="text-secondary font-medium flex items-center gap-0.5">
                         <span class="material-symbols-outlined text-xs">calendar_month</span>
-                        <span>Due in 5 days (Oct 4)</span>
+                        <span>Due in 5 days (Oct 6)</span>
                       </span>
                       <span>50 Pts</span>
                     </div>
@@ -849,7 +850,7 @@
                     <div class="flex items-center justify-between mt-1 text-[11px] text-on-surface-variant">
                       <span class="text-slate-600 font-medium flex items-center gap-0.5">
                         <span class="material-symbols-outlined text-xs">calendar_month</span>
-                        <span>Due in 8 days (Oct 7)</span>
+                        <span>Due in 8 days (Oct 9)</span>
                       </span>
                       <span>100 Pts</span>
                     </div>
@@ -859,9 +860,9 @@
               </div>
 
               <!-- Quick action to submit -->
-              <button onclick="openTasksModal()" class="w-full py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-xs font-semibold transition-colors flex items-center justify-center gap-1.5">
-                <span class="material-symbols-outlined text-sm">upload_file</span>
-                <span>Open Submission Portal</span>
+              <button onclick="switchView('tasks-and-assignments')" class="w-full py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-xs font-semibold transition-colors flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                <span>Open Full Tasks &amp; Assignments Page</span>
               </button>
             </div>
 
@@ -1053,25 +1054,25 @@
               </div>
               <div class="flex flex-col gap-space-xs">
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex flex-col">
-                    <span class="font-body-md text-body-md text-on-surface">Data Structures</span>
-                    <span class="font-label-sm text-label-sm text-error">Advanced Tree Traversal</span>
+                  <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-sm text-error">warning</span>
+                    <span class="font-body-md text-body-md text-on-surface">Data Structures: AVL Trees</span>
                   </div>
-                  <span class="material-symbols-outlined text-base text-error">warning</span>
+                  <span class="text-xs font-bold text-error">62%</span>
                 </div>
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex flex-col">
-                    <span class="font-body-md text-body-md text-on-surface">Database Management</span>
-                    <span class="font-label-sm text-label-sm text-error">Query Optimization &amp; Indexing</span>
+                  <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-sm text-error">warning</span>
+                    <span class="font-body-md text-body-md text-on-surface">DBMS: 3NF &amp; Indexing</span>
                   </div>
-                  <span class="material-symbols-outlined text-base text-error">warning</span>
+                  <span class="text-xs font-bold text-error">68%</span>
                 </div>
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex flex-col">
-                    <span class="font-body-md text-body-md text-on-surface">Operating Systems</span>
-                    <span class="font-label-sm text-label-sm text-error">Concurrency &amp; Mutex Locking</span>
+                  <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-sm text-amber-600">warning</span>
+                    <span class="font-body-md text-body-md text-on-surface">Operating Systems: Threads</span>
                   </div>
-                  <span class="material-symbols-outlined text-base text-error">warning</span>
+                  <span class="text-xs font-bold text-amber-600">71%</span>
                 </div>
               </div>
             </div>
@@ -1080,361 +1081,291 @@
             <div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-space-xs text-on-surface">
-                  <span class="material-symbols-outlined text-tertiary-fixed-dim text-lg">explore</span>
-                  <span class="font-headline-sm text-headline-sm font-semibold">Potential Careers</span>
+                  <span class="material-symbols-outlined text-secondary text-lg">work</span>
+                  <span class="font-headline-sm text-headline-sm font-semibold">Career Fit</span>
                 </div>
-                <span class="font-label-sm text-label-sm text-on-surface-variant">Twin Fit Score</span>
+                <span class="font-label-sm text-label-sm text-secondary font-semibold">AI Match</span>
               </div>
               <div class="flex flex-col gap-space-xs">
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex items-center gap-space-xs">
-                    <span class="material-symbols-outlined text-sm text-secondary">terminal</span>
-                    <span class="font-body-md text-body-md text-on-surface">Software Engineer</span>
-                  </div>
-                  <span class="px-space-xs py-0.5 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-label-sm font-bold">92%</span>
+                  <span class="font-body-md text-body-md text-on-surface">Software Systems Engineer</span>
+                  <span class="text-xs font-bold text-secondary">94%</span>
                 </div>
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex items-center gap-space-xs">
-                    <span class="material-symbols-outlined text-sm text-secondary">database</span>
-                    <span class="font-body-md text-body-md text-on-surface">Data Scientist</span>
-                  </div>
-                  <span class="px-space-xs py-0.5 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-label-sm font-bold">84%</span>
+                  <span class="font-body-md text-body-md text-on-surface">Full-Stack Architect</span>
+                  <span class="text-xs font-bold text-secondary">91%</span>
                 </div>
                 <div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container-lowest">
-                  <div class="flex items-center gap-space-xs">
-                    <span class="material-symbols-outlined text-sm text-secondary">account_tree</span>
-                    <span class="font-body-md text-body-md text-on-surface">System Analyst</span>
-                  </div>
-                  <span class="px-space-xs py-0.5 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-label-sm font-bold">79%</span>
+                  <span class="font-body-md text-body-md text-on-surface">Database &amp; Cloud Engineer</span>
+                  <span class="text-xs font-bold text-secondary">86%</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Two Column Analytical Layout -->
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter-lg">
-          <!-- LEFT SIDE: Telemetry, Trend & Weak Area Diagnostics (7 Cols) -->
-          <div class="xl:col-span-7 flex flex-col gap-gutter-lg">
-            
-            <!-- Performance Trend Card -->
-            <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
-                <div>
-                  <h3 class="font-headline-md text-headline-md text-on-surface">Performance Trend</h3>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant">Cumulative Grade Pointer vs. Class Cohort Aggregate</p>
-                </div>
-                <div class="flex items-center gap-space-md">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-3 rounded-full bg-secondary"></span>
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">Aarav (You)</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-3 rounded-full bg-surface-container-highest"></span>
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">Class Avg</span>
-                  </div>
-                </div>
-              </div>
+      </section>
 
-              <!-- SVG Line Chart Progression -->
-              <div class="w-full bg-surface-container-low/50 rounded-xl p-space-md">
-                <svg class="w-full h-44 overflow-visible" preserveaspectratio="none" viewbox="0 0 500 160">
-                  <defs>
-                    <lineargradient id="userGrad" x1="0%" x2="0%" y1="0%" y2="100%">
-                      <stop offset="0%" stop-color="#0051d5" stop-opacity="0.25"></stop>
-                      <stop offset="100%" stop-color="#0051d5" stop-opacity="0"></stop>
-                    </lineargradient>
-                  </defs>
-                  <!-- Grid Lines -->
-                  <line stroke="#c5c6ce" stroke-dasharray="3 3" stroke-opacity="0.3" x1="0" x2="500" y1="20" y2="20"></line>
-                  <line stroke="#c5c6ce" stroke-dasharray="3 3" stroke-opacity="0.3" x1="0" x2="500" y1="60" y2="60"></line>
-                  <line stroke="#c5c6ce" stroke-dasharray="3 3" stroke-opacity="0.3" x1="0" x2="500" y1="100" y2="100"></line>
-                  <line stroke="#c5c6ce" stroke-opacity="0.3" x1="0" x2="500" y1="140" y2="140"></line>
-                  <!-- Class Avg Path (Dashed) -->
-                  <path d="M 30 115 L 170 95 L 310 100 L 460 88" fill="none" stroke="#7886a3" stroke-dasharray="4 4" stroke-width="2"></path>
-                  <!-- User Area fill -->
-                  <path d="M 30 92 L 170 70 L 310 48 L 460 32 L 460 140 L 30 140 Z" fill="url(#userGrad)"></path>
-                  <!-- User Line -->
-                  <path d="M 30 92 L 170 70 L 310 48 L 460 32" fill="none" stroke="#0051d5" stroke-linecap="round" stroke-width="3"></path>
-                  <!-- Node Points -->
-                  <circle class="transition-transform hover:scale-125" cx="30" cy="92" fill="#0051d5" r="4.5"></circle>
-                  <circle class="transition-transform hover:scale-125" cx="170" cy="70" fill="#0051d5" r="4.5"></circle>
-                  <circle class="transition-transform hover:scale-125" cx="310" cy="48" fill="#0051d5" r="4.5"></circle>
-                  <circle class="transition-transform hover:scale-125" cx="460" cy="32" fill="#ffffff" r="5.5" stroke="#0051d5" stroke-width="3"></circle>
-                  <!-- Value Labels on Chart -->
-                  <text fill="#0b1c30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="30" y="82">7.6</text>
-                  <text fill="#0b1c30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="170" y="60">8.1</text>
-                  <text fill="#0b1c30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="310" y="38">8.5</text>
-                  <text fill="#0051d5" font-family="Inter" font-size="10" font-weight="700" text-anchor="middle" x="460" y="22">8.8</text>
-                </svg>
-                <div class="flex justify-between px-6 pt-2 font-label-sm text-label-sm text-on-surface-variant font-medium">
-                  <span>Sem 1</span>
-                  <span>Sem 2</span>
-                  <span>Sem 3</span>
-                  <span>Sem 4 (Current)</span>
-                </div>
-              </div>
-
-              <!-- AI Insight Subpanel -->
-              <div class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-high/40">
-                <div class="p-2 rounded-lg bg-surface-container-lowest text-secondary shadow-sm">
-                  <span class="material-symbols-outlined text-xl">psychology</span>
-                </div>
-                <div class="flex flex-col gap-1 flex-1">
-                  <span class="font-headline-sm text-headline-sm text-on-surface">Twin Performance Diagnosis</span>
-                  <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    Your problem-solving velocity is in the top 8% of the cohort. Closing the comprehension gap in Advanced Data Structures and DBMS query execution will reliably propel your aggregate GPA above 9.2.
-                  </p>
-                  <div class="pt-space-xs">
-                    <button onclick="openAIModal('Show me a detailed diagnostic breakdown of my academic strengths and focus areas')" class="inline-flex items-center gap-space-xs font-label-md text-label-md font-semibold text-secondary hover:underline">
-                      <span>View Detailed Diagnostic Report</span>
-                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+      <!-- ============================================================== -->
+      <!-- VIEW 3: ACADEMICS PAGE                                         -->
+      <!-- ============================================================== -->
+      <section id="view-academics" class="flex flex-col w-full pb-space-2xl gap-gutter-lg hidden fade-in">
+        
+        <!-- Top Academic Overview Header Banner -->
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm border border-outline-variant/20 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+          <div class="flex items-start sm:items-center gap-space-md">
+            <div class="p-3.5 rounded-2xl bg-secondary-container/10 text-secondary ring-4 ring-secondary/5 shrink-0">
+              <span class="material-symbols-outlined text-3xl">school</span>
             </div>
-
-            <!-- AI Weak Area Detection & Diagnostics Card -->
-            <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-lg">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="font-headline-md text-headline-md text-on-surface">AI Weak Area Detection</h3>
-                  <p class="font-body-sm text-body-sm text-on-surface-variant">Continuous telemetry of course curriculum proficiencies</p>
-                </div>
-                <div class="flex items-center gap-space-xs">
-                  <span class="px-space-xs py-1 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">Updated 10m ago</span>
-                </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-space-sm flex-wrap">
+                <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Academic Operations &amp; Curriculum</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/15 text-secondary font-label-sm text-xs font-semibold">Semester IV • Sec B</span>
               </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center">
-                <!-- Radial Gauge Card (5 cols) -->
-                <div class="md:col-span-5 flex flex-col items-center justify-center p-space-md bg-surface-container-low rounded-xl text-center">
-                  <div class="relative w-36 h-36 flex items-center justify-center">
-                    <svg class="w-full h-full -rotate-90" viewbox="0 0 120 120">
-                      <circle cx="60" cy="60" fill="transparent" r="50" stroke="#dce9ff" stroke-width="10"></circle>
-                      <circle cx="60" cy="60" fill="transparent" r="50" stroke="#0051d5" stroke-dasharray="314.15" stroke-dashoffset="87.96" stroke-linecap="round" stroke-width="10"></circle>
-                    </svg>
-                    <div class="absolute flex flex-col items-center justify-center">
-                      <span class="font-metric-stat text-metric-stat text-on-surface font-extrabold">72%</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Readiness Index</span>
-                    </div>
-                  </div>
-                  <div class="mt-space-md flex items-center gap-space-md text-left">
-                    <div class="flex items-center gap-1">
-                      <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">Strong</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">Moderate</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                      <span class="w-2.5 h-2.5 rounded-full bg-error"></span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">Weak</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Weak Metrics Bars (7 cols) -->
-                <div class="md:col-span-7 flex flex-col gap-space-md">
-                  <!-- Metric 1: DSA -->
-                  <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-space-xs">
-                        <span class="font-headline-sm text-headline-sm text-on-surface">Data Structures</span>
-                        <span class="px-space-xs py-0.5 rounded-full bg-error/10 text-error font-label-sm text-label-sm font-semibold">Weak Area</span>
-                      </div>
-                      <span class="font-label-md text-label-md font-bold text-error">62%</span>
-                    </div>
-                    <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-                      <div class="h-full bg-error rounded-full" style="width: 62%;"></div>
-                    </div>
-                    <span class="font-body-sm text-body-sm text-on-surface-variant">Failing 3/5 test scenarios on Binary Search Trees &amp; AVL re-balancing</span>
-                  </div>
-
-                  <!-- Metric 2: DBMS -->
-                  <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-space-xs">
-                        <span class="font-headline-sm text-headline-sm text-on-surface">Database Management</span>
-                        <span class="px-space-xs py-0.5 rounded-full bg-error/10 text-error font-label-sm text-label-sm font-semibold">Weak Area</span>
-                      </div>
-                      <span class="font-label-md text-label-md font-bold text-error">68%</span>
-                    </div>
-                    <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-                      <div class="h-full bg-error rounded-full" style="width: 68%;"></div>
-                    </div>
-                    <span class="font-body-sm text-body-sm text-on-surface-variant">Needs reinforcement on 3NF Decomposition &amp; B-Tree Index execution</span>
-                  </div>
-
-                  <!-- Metric 3: OS -->
-                  <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-space-xs">
-                        <span class="font-headline-sm text-headline-sm text-on-surface">Operating Systems</span>
-                        <span class="px-space-xs py-0.5 rounded-full bg-tertiary-fixed-dim/20 text-on-tertiary-container font-label-sm text-label-sm font-semibold">Moderate</span>
-                      </div>
-                      <span class="font-label-md text-label-md font-bold text-on-tertiary-container">71%</span>
-                    </div>
-                    <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-                      <div class="h-full bg-tertiary-fixed-dim rounded-full" style="width: 71%;"></div>
-                    </div>
-                    <span class="font-body-sm text-body-sm text-on-surface-variant">Competent in memory management; concurrency threads require revision</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- RIGHT SIDE: AI Study Recommendations & Interventions (5 Cols) -->
-          <div class="xl:col-span-5 flex flex-col gap-space-md">
-            <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
-              <!-- Header -->
-              <div class="flex flex-col gap-1">
-                <div class="flex items-center justify-between">
-                  <h3 class="font-headline-md text-headline-md text-on-surface">Study Recommendations</h3>
-                  <span class="material-symbols-outlined text-secondary">auto_fix_high</span>
-                </div>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">Personalized study plan derived from Digital Twin discrepancy flags</p>
-              </div>
-
-              <!-- Filter Sub-tabs -->
-              <div class="flex items-center gap-space-xs border-b border-surface-container-high pb-space-xs">
-                <button class="px-space-sm py-1 rounded-md bg-secondary-container/10 text-secondary font-label-sm text-label-sm font-semibold">Recommended for You</button>
-                <button onclick="showToast('Loading next scheduled study steps')" class="px-space-sm py-1 rounded-md text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm">Next Steps</button>
-                <button onclick="openNotesModal()" class="px-space-sm py-1 rounded-md text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm">Resources</button>
-              </div>
-
-              <!-- Actionable Recommendation Cards List -->
-              <div class="flex flex-col gap-space-md mt-space-xs">
-                
-                <!-- Recommendation 1: DSA -->
-                <div class="relative bg-surface-container-low/70 rounded-xl p-space-md flex flex-col gap-space-sm group hover:shadow-md transition-all duration-150">
-                  <div class="flex items-start justify-between gap-space-sm">
-                    <div class="flex items-center gap-space-xs">
-                      <span class="p-1.5 rounded-lg bg-error/10 text-error">
-                        <span class="material-symbols-outlined text-lg">account_tree</span>
-                      </span>
-                      <span class="font-headline-sm text-headline-sm text-on-surface">Data Structures</span>
-                    </div>
-                    <span class="px-space-xs py-0.5 rounded-full bg-error/10 text-error font-label-sm text-label-sm font-bold">Priority: High</span>
-                  </div>
-                  <div class="flex flex-col gap-0.5 pl-0.5">
-                    <h4 class="font-label-md text-label-md text-on-surface font-semibold">Advanced Tree Traversal &amp; Balancing</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Watch 5 short targeted modules + solve 20 curated recursive problems</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-space-xs">
-                    <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-                      <span class="material-symbols-outlined text-sm">schedule</span>
-                      <span>Est. 3 days • 2.5 hrs/day</span>
-                    </div>
-                    <button onclick="openAIModal('Guide me through Advanced Tree Traversal and AVL tree balancing with code snippets')" class="px-space-md py-1 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-semibold hover:bg-secondary/90 transition-colors shadow-sm flex items-center gap-1">
-                      <span>Start Learning</span>
-                      <span class="material-symbols-outlined text-sm">play_arrow</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Recommendation 2: DBMS -->
-                <div class="relative bg-surface-container-low/70 rounded-xl p-space-md flex flex-col gap-space-sm group hover:shadow-md transition-all duration-150">
-                  <div class="flex items-start justify-between gap-space-sm">
-                    <div class="flex items-center gap-space-xs">
-                      <span class="p-1.5 rounded-lg bg-error/10 text-error">
-                        <span class="material-symbols-outlined text-lg">storage</span>
-                      </span>
-                      <span class="font-headline-sm text-headline-sm text-on-surface">DBMS</span>
-                    </div>
-                    <span class="px-space-xs py-0.5 rounded-full bg-error/10 text-error font-label-sm text-label-sm font-bold">Priority: High</span>
-                  </div>
-                  <div class="flex flex-col gap-0.5 pl-0.5">
-                    <h4 class="font-label-md text-label-md text-on-surface font-semibold">Normalization &amp; Index Structure</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Complete structured concept notes + attempt 15 diagnostic MCQs</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-space-xs">
-                    <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-                      <span class="material-symbols-outlined text-sm">schedule</span>
-                      <span>Est. 2 days • 1.5 hrs/day</span>
-                    </div>
-                    <button onclick="openAIModal('Teach me DBMS Normalization up to BCNF and how B-Trees index queries')" class="px-space-md py-1 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-semibold hover:bg-secondary/90 transition-colors shadow-sm flex items-center gap-1">
-                      <span>Start</span>
-                      <span class="material-symbols-outlined text-sm">play_arrow</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Recommendation 3: OS -->
-                <div class="relative bg-surface-container-low/70 rounded-xl p-space-md flex flex-col gap-space-sm group hover:shadow-md transition-all duration-150">
-                  <div class="flex items-start justify-between gap-space-sm">
-                    <div class="flex items-center gap-space-xs">
-                      <span class="p-1.5 rounded-lg bg-surface-container-highest text-secondary">
-                        <span class="material-symbols-outlined text-lg">memory</span>
-                      </span>
-                      <span class="font-headline-sm text-headline-sm text-on-surface">Operating Systems</span>
-                    </div>
-                    <span class="px-space-xs py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm font-bold">Priority: Medium</span>
-                  </div>
-                  <div class="flex flex-col gap-0.5 pl-0.5">
-                    <h4 class="font-label-md text-label-md text-on-surface font-semibold">Thread Scheduling &amp; Semaphore Locks</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Revise Unit 3 curriculum + execute 8 past university exam questions</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-space-xs">
-                    <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-                      <span class="material-symbols-outlined text-sm">schedule</span>
-                      <span>Est. 4 days • 1 hr/day</span>
-                    </div>
-                    <button onclick="openAIModal('Explain Semaphore Locks and race condition prevention in C')" class="px-space-md py-1 rounded-lg bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors shadow-sm flex items-center gap-1">
-                      <span>Start</span>
-                      <span class="material-symbols-outlined text-sm">play_arrow</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Recommendation 4: Web Technologies -->
-                <div class="relative bg-surface-container-low/70 rounded-xl p-space-md flex flex-col gap-space-sm group hover:shadow-md transition-all duration-150">
-                  <div class="flex items-start justify-between gap-space-sm">
-                    <div class="flex items-center gap-space-xs">
-                      <span class="p-1.5 rounded-lg bg-secondary-container/10 text-secondary">
-                        <span class="material-symbols-outlined text-lg">code</span>
-                      </span>
-                      <span class="font-headline-sm text-headline-sm text-on-surface">Web Technologies</span>
-                    </div>
-                    <span class="px-space-xs py-0.5 rounded-full bg-secondary-container/10 text-secondary font-label-sm text-label-sm font-bold">Priority: Low</span>
-                  </div>
-                  <div class="flex flex-col gap-0.5 pl-0.5">
-                    <h4 class="font-label-md text-label-md text-on-surface font-semibold">State Machines &amp; Reactive Patterns</h4>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Build 1 minor sandbox widget + reinforce event bus architecture</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-space-xs">
-                    <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-                      <span class="material-symbols-outlined text-sm">schedule</span>
-                      <span>Est. 2 days • 1 hr/day</span>
-                    </div>
-                    <button onclick="openAIModal('How do reactive state machines work in web frontends?')" class="px-space-md py-1 rounded-lg bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors shadow-sm flex items-center gap-1">
-                      <span>Start</span>
-                      <span class="material-symbols-outlined text-sm">play_arrow</span>
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Banner for custom twin prompt -->
-              <div class="mt-space-xs p-space-md rounded-xl bg-primary-container text-on-primary flex items-center justify-between">
-                <div class="flex items-center gap-space-sm">
-                  <span class="material-symbols-outlined text-tertiary-fixed text-2xl">neurology</span>
-                  <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-bold text-on-primary">Ask Twin Copilot</span>
-                    <span class="font-body-sm text-body-sm text-on-primary-container">Simulate score with 10hrs study</span>
-                  </div>
-                </div>
-                <button onclick="runSimulation()" class="px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold hover:bg-secondary/90 transition-colors">
-                  Run Sim
-                </button>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                B.Tech Computer Science &amp; Engineering • Aarav Sharma • Roll #CS-2024-884
+              </p>
+              <div class="flex items-center gap-space-md text-body-sm text-on-surface-variant mt-1 flex-wrap">
+                <span class="flex items-center gap-1 font-medium text-on-surface">
+                  <span class="material-symbols-outlined text-sm text-secondary">verified</span>
+                  <span>19 Credits Enrolled</span>
+                </span>
+                <span>•</span>
+                <span class="flex items-center gap-1 font-medium text-emerald-600">
+                  <span class="material-symbols-outlined text-sm">fact_check</span>
+                  <span>91.4% Attendance (Safe)</span>
+                </span>
+                <span>•</span>
+                <span class="flex items-center gap-1 font-medium text-secondary">
+                  <span class="material-symbols-outlined text-sm">grade</span>
+                  <span>8.82 Cumulative CGPA</span>
+                </span>
               </div>
             </div>
           </div>
+
+          <!-- Academic Action Buttons -->
+          <div class="flex items-center gap-space-sm self-start lg:self-center flex-wrap">
+            <button onclick="showToast('Grade sheet PDF for Semesters I-IV downloaded')" class="px-space-md py-2 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+              <span class="material-symbols-outlined text-base">download</span>
+              <span>Transcript &amp; Grade Card</span>
+            </button>
+            <button onclick="openFacultyModal('Prof. R. Ramanujan', 'Head of Dept & Academic Advisor', 'CS401')" class="px-space-md py-2 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+              <span class="material-symbols-outlined text-base">support_agent</span>
+              <span>Contact Advisor</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ACADEMIC SUBTABS SWITCHER -->
+        <div class="flex items-center gap-1.5 p-1 bg-surface-container rounded-2xl overflow-x-auto select-none shadow-sm" id="academic-tabs-bar">
+          <button onclick="setAcademicSubtab('all')" id="tab-academic-all" class="academic-subtab-btn px-space-md py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap">
+            All Overview
+          </button>
+          <button onclick="setAcademicSubtab('subjects')" id="tab-academic-subjects" class="academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+            My Subjects
+          </button>
+          <button onclick="setAcademicSubtab('attendance')" id="tab-academic-attendance" class="academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+            Attendance
+          </button>
+          <button onclick="setAcademicSubtab('grades')" id="tab-academic-grades" class="academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+            Marks &amp; Grades
+          </button>
+          <button onclick="setAcademicSubtab('faculty')" id="tab-academic-faculty" class="academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+            Faculty Information
+          </button>
+          <button onclick="setAcademicSubtab('semester')" id="tab-academic-semester" class="academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+            Semester Overview
+          </button>
+        </div>
+
+        <!-- ACADEMIC SECTIONS -->
+        <div id="academic-sec-subjects" class="academic-section bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <h2 class="font-headline-sm font-bold text-on-surface">Semester IV Enrolled Courses</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+            <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/10">
+              <span class="text-xs font-bold text-secondary">CS401 • 4 Credits</span>
+              <h3 class="font-headline-sm text-sm font-bold text-on-surface mt-1">Data Structures &amp; Algorithms</h3>
+              <p class="text-xs text-on-surface-variant mt-0.5">Faculty: Prof. R. Ramanujan • Status: Active (AVL Trees)</p>
+            </div>
+            <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/10">
+              <span class="text-xs font-bold text-secondary">CS403 • 4 Credits</span>
+              <h3 class="font-headline-sm text-sm font-bold text-on-surface mt-1">Database Management Systems</h3>
+              <p class="text-xs text-on-surface-variant mt-0.5">Faculty: Dr. K. Verma • Status: Active (3NF Normalization)</p>
+            </div>
+            <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/10">
+              <span class="text-xs font-bold text-secondary">CS402 • 4 Credits</span>
+              <h3 class="font-headline-sm text-sm font-bold text-on-surface mt-1">Operating Systems</h3>
+              <p class="text-xs text-on-surface-variant mt-0.5">Faculty: Prof. S. Sen • Status: Active (Concurrency)</p>
+            </div>
+            <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/10">
+              <span class="text-xs font-bold text-secondary">CS405 • 3 Credits</span>
+              <h3 class="font-headline-sm text-sm font-bold text-on-surface mt-1">Web Technologies</h3>
+              <p class="text-xs text-on-surface-variant mt-0.5">Faculty: Dr. Priya Nair • Status: Active (Reactive Architecture)</p>
+            </div>
+            <div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/10">
+              <span class="text-xs font-bold text-secondary">CS404 • 4 Credits</span>
+              <h3 class="font-headline-sm text-sm font-bold text-on-surface mt-1">Discrete Mathematics</h3>
+              <p class="text-xs text-on-surface-variant mt-0.5">Faculty: Dr. A. K. Banerjee • Status: Active (Graph Theory)</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="academic-sec-attendance" class="academic-section bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <h2 class="font-headline-sm font-bold text-on-surface">Attendance Overview (91.4% Overall)</h2>
+          <p class="text-xs text-on-surface-variant">128 of 140 sessions attended across all subjects. Safe buffer of 4 lectures above the 75% cutoff.</p>
+        </div>
+
+        <div id="academic-sec-grades" class="academic-section bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <h2 class="font-headline-sm font-bold text-on-surface">Marks &amp; Projected SGPA (8.95)</h2>
+          <p class="text-xs text-on-surface-variant">Mid-Terms average 89.2%, internal evaluations in top 6% of the cohort.</p>
+        </div>
+
+        <div id="academic-sec-faculty" class="academic-section bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <h2 class="font-headline-sm font-bold text-on-surface">Faculty Advisory Directory</h2>
+          <p class="text-xs text-on-surface-variant">Prof. R. Ramanujan (HOD CS), Dr. K. Verma, Prof. S. Sen, Dr. Priya Nair, Dr. A. K. Banerjee.</p>
+        </div>
+
+        <div id="academic-sec-semester" class="academic-section bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <h2 class="font-headline-sm font-bold text-on-surface">Semester Progression &amp; Degree Audit</h2>
+          <p class="text-xs text-on-surface-variant">86 of 160 Credits completed. Sem 1: 7.60, Sem 2: 8.10, Sem 3: 8.50, Sem 4 Proj: 8.95. CGPA: 8.82.</p>
+        </div>
+
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- VIEW 4: TASKS & ASSIGNMENTS PAGE                               -->
+      <!-- ============================================================== -->
+      <section id="view-tasks" class="flex flex-col w-full pb-space-2xl gap-gutter-lg hidden fade-in">
+        
+        <!-- Header Banner with Title & "Add Task" Button -->
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+          <div class="flex items-start sm:items-center gap-space-md">
+            <div class="p-3.5 rounded-2xl bg-indigo-500/10 text-indigo-600 ring-4 ring-indigo-500/5 shrink-0">
+              <span class="material-symbols-outlined text-3xl">assignment_turned_in</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-space-sm flex-wrap">
+                <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Tasks &amp; Assignments</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/15 text-secondary font-label-sm text-xs font-semibold">Semester IV Tracker</span>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Track coursework submissions, deadlines, priority levels, and completion status.
+              </p>
+            </div>
+          </div>
+
+          <!-- Add Task Primary Button -->
+          <div class="flex items-center gap-space-sm self-start sm:self-center shrink-0">
+            <button onclick="openAddTaskModal()" class="px-space-md py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+              <span class="material-symbols-outlined text-base">add_task</span>
+              <span>Add Task</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Task Metric Summary Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-md">
+          
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setTaskFilter('all')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">All Tasks</span>
+              <span class="p-1 rounded bg-surface-container text-on-surface"><span class="material-symbols-outlined text-sm">inventory_2</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-on-surface" id="stat-total-tasks">7</span>
+              <span class="text-xs text-on-surface-variant">Tracked</span>
+            </div>
+            <span class="text-[11px] text-secondary font-medium">Semester IV Coursework</span>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setTaskFilter('pending')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Pending</span>
+              <span class="p-1 rounded bg-amber-500/10 text-amber-700"><span class="material-symbols-outlined text-sm">pending_actions</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-amber-700" id="stat-pending-tasks">5</span>
+              <span class="text-xs text-on-surface-variant">Active</span>
+            </div>
+            <span class="text-[11px] text-on-surface-variant">Requires action or submission</span>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setTaskFilter('due-soon')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Due Soon</span>
+              <span class="p-1 rounded bg-error/10 text-error"><span class="material-symbols-outlined text-sm">alarm</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-error" id="stat-duesoon-tasks">2</span>
+              <span class="text-xs text-error font-bold">&lt; 72 Hours</span>
+            </div>
+            <span class="text-[11px] text-error font-medium">Next: Tomorrow 11:59 PM</span>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setTaskFilter('completed')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Completed</span>
+              <span class="p-1 rounded bg-emerald-500/10 text-emerald-600"><span class="material-symbols-outlined text-sm">check_circle</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-emerald-600" id="stat-completed-tasks">2</span>
+              <span class="text-xs text-emerald-600 font-bold">Done</span>
+            </div>
+            <span class="text-[11px] text-emerald-600 font-medium">100% On-Time Record</span>
+          </div>
+
+        </div>
+
+        <!-- Filter Bar & Search/Subject Controls -->
+        <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+          
+          <!-- Filters (All | Pending | Due Soon | Completed) -->
+          <div class="flex items-center gap-1.5 p-1 bg-surface-container rounded-xl overflow-x-auto select-none">
+            <button onclick="setTaskFilter('all')" id="filter-btn-all" class="task-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap">
+              All (<span id="btn-count-all">7</span>)
+            </button>
+            <button onclick="setTaskFilter('pending')" id="filter-btn-pending" class="task-filter-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Pending (<span id="btn-count-pending">5</span>)
+            </button>
+            <button onclick="setTaskFilter('due-soon')" id="filter-btn-due-soon" class="task-filter-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Due Soon (<span id="btn-count-due-soon">2</span>)
+            </button>
+            <button onclick="setTaskFilter('completed')" id="filter-btn-completed" class="task-filter-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Completed (<span id="btn-count-completed">2</span>)
+            </button>
+          </div>
+
+          <!-- Subject and Search Filters -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <select id="task-subject-filter" onchange="filterTasksByControls()" class="px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-medium text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
+              <option value="all">All Subjects</option>
+              <option value="CS401">CS401: Data Structures</option>
+              <option value="CS403">CS403: DBMS</option>
+              <option value="CS402">CS402: Operating Systems</option>
+              <option value="CS405">CS405: Web Technologies</option>
+              <option value="CS404">CS404: Discrete Mathematics</option>
+            </select>
+
+            <select id="task-priority-filter" onchange="filterTasksByControls()" class="px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-medium text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
+              <option value="all">All Priorities</option>
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-2.5 text-sm text-on-surface-variant">search</span>
+              <input id="task-search-input" oninput="filterTasksByControls()" type="text" placeholder="Search tasks..." class="pl-8 pr-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary w-36 sm:w-48"/>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Task Cards Dynamic Container -->
+        <div id="tasks-list-container" class="flex flex-col gap-space-sm">
+          <!-- Rendered dynamically via JavaScript -->
         </div>
 
       </section>
@@ -1449,7 +1380,6 @@
   <!-- 1. AI Assistant Modal -->
   <div id="modal-ai-assistant" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-surface-container-lowest w-full max-w-2xl rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col max-h-[85vh] overflow-hidden fade-in">
-      <!-- Modal Header -->
       <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
         <div class="flex items-center gap-space-sm">
           <span class="p-1.5 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed">
@@ -1465,7 +1395,6 @@
         </button>
       </div>
 
-      <!-- Chat Messages Container -->
       <div id="chat-messages" class="p-space-lg flex flex-col gap-space-md overflow-y-auto flex-1 custom-scrollbar min-h-[300px] max-h-[460px] bg-surface">
         <div class="flex items-start gap-space-sm max-w-[85%]">
           <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 text-sm font-bold">
@@ -1477,7 +1406,6 @@
         </div>
       </div>
 
-      <!-- Quick Suggested Prompts -->
       <div class="px-space-lg py-2 border-t border-outline-variant/10 bg-surface-container-low flex items-center gap-2 overflow-x-auto text-xs whitespace-nowrap">
         <span class="text-on-surface-variant font-medium shrink-0">Quick Ask:</span>
         <button onclick="sendQuickPrompt('Explain AVL tree LL and RR rotations simply with an example')" class="px-2.5 py-1 rounded-full bg-surface-container hover:bg-secondary hover:text-on-secondary text-on-surface transition-colors">
@@ -1491,7 +1419,6 @@
         </button>
       </div>
 
-      <!-- Chat Input Field -->
       <form onsubmit="handleChatSubmit(event)" class="p-space-md border-t border-outline-variant/15 bg-surface-container-lowest flex items-center gap-space-sm">
         <input id="ai-chat-input" type="text" placeholder="Ask about DSA algorithms, DBMS normalization, or exam tips..." class="flex-1 px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary"/>
         <button type="submit" class="px-4 py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-1">
@@ -1554,19 +1481,6 @@
               Schedule
             </button>
           </div>
-
-          <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/15 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">3</span>
-              <div>
-                <span class="font-label-md text-xs font-bold text-on-surface">Operating Systems Thread Concurrency</span>
-                <p class="text-[11px] text-on-surface-variant">09:15 PM - 10:00 PM • 45 mins • Light Review</p>
-              </div>
-            </div>
-            <button onclick="showToast('Timer queued for 9:15 PM')" class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-semibold hover:bg-surface-container-highest">
-              Schedule
-            </button>
-          </div>
         </div>
 
         <button onclick="showToast('AI Study Plan generated &amp; synced to Google Calendar'); closeModal('modal-study-planner');" class="w-full py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-colors">
@@ -1576,69 +1490,7 @@
     </div>
   </div>
 
-  <!-- 3. Tasks & Assignments Modal -->
-  <div id="modal-tasks" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-surface-container-lowest w-full max-w-xl rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
-      <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
-        <div class="flex items-center gap-space-sm">
-          <span class="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">
-            <span class="material-symbols-outlined text-xl">assignment</span>
-          </span>
-          <div>
-            <h3 class="font-headline-sm text-base font-bold text-white">Tasks &amp; Assignments Manager</h3>
-            <span class="text-xs text-on-primary-container">Track deadlines and upload submissions</span>
-          </div>
-        </div>
-        <button onclick="closeModal('modal-tasks')" class="p-1 rounded-lg text-white/80 hover:text-white">
-          <span class="material-symbols-outlined text-xl">close</span>
-        </button>
-      </div>
-
-      <div class="p-space-lg flex flex-col gap-space-md overflow-y-auto max-h-[70vh]">
-        <!-- Add Quick Task -->
-        <div class="flex gap-2">
-          <input id="new-task-input" type="text" placeholder="Add custom study task or submission..." class="flex-1 px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:outline-none focus:ring-2 focus:ring-secondary"/>
-          <button onclick="addNewCustomTask()" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90">
-            Add Task
-          </button>
-        </div>
-
-        <div class="flex flex-col gap-2" id="modal-tasks-list">
-          <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/10 flex items-center justify-between">
-            <div>
-              <span class="font-label-md text-xs font-bold text-on-surface">CS401: Lab 4 - AVL Tree Implementation</span>
-              <p class="text-[11px] text-error font-medium">Due Tomorrow at 11:59 PM • 100 Pts</p>
-            </div>
-            <button onclick="showToast('Upload portal opened. Select ZIP or GitHub link.');" class="px-3 py-1 rounded-lg bg-secondary text-on-secondary text-xs font-semibold">
-              Submit
-            </button>
-          </div>
-
-          <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/10 flex items-center justify-between">
-            <div>
-              <span class="font-label-md text-xs font-bold text-on-surface">CS403: Project Phase 1 Schema Draft</span>
-              <p class="text-[11px] text-amber-700 font-medium">Due Oct 2 (In 3 days) • Group of 2</p>
-            </div>
-            <button onclick="showToast('Project submission portal ready.');" class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-semibold">
-              Submit
-            </button>
-          </div>
-
-          <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/10 flex items-center justify-between">
-            <div>
-              <span class="font-label-md text-xs font-bold text-on-surface">CS402: Quiz 2 Preparation &amp; Mock</span>
-              <p class="text-[11px] text-secondary font-medium">Due Oct 4 (In 5 days)</p>
-            </div>
-            <button onclick="openAIModal('Quiz me on Operating Systems concurrency and semaphores'); closeModal('modal-tasks');" class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-semibold">
-              Mock Quiz
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Notes & Materials Modal -->
+  <!-- 3. Notes & Materials Modal -->
   <div id="modal-notes" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-surface-container-lowest w-full max-w-xl rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
       <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
@@ -1682,24 +1534,11 @@
             <span class="material-symbols-outlined text-sm">download</span>
           </button>
         </div>
-
-        <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/15 flex items-center justify-between hover:bg-surface-container transition-colors">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-indigo-600 text-2xl">picture_as_pdf</span>
-            <div>
-              <span class="font-label-md text-xs font-bold text-on-surface">CS402: Concurrency, Thread Synchronization &amp; Mutex Guide</span>
-              <p class="text-[11px] text-on-surface-variant">Prof. S. Sen • 28 Pages • PDF (3.2 MB)</p>
-            </div>
-          </div>
-          <button onclick="showToast('Downloading CS402 Concurrency Guide...')" class="p-2 rounded-lg bg-surface-container-high hover:bg-secondary hover:text-white transition-colors">
-            <span class="material-symbols-outlined text-sm">download</span>
-          </button>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- 5. Profile Modal -->
+  <!-- 4. Profile Modal -->
   <div id="modal-profile" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
       <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
@@ -1724,6 +1563,142 @@
     </div>
   </div>
 
+  <!-- 5. Faculty Consultation Modal -->
+  <div id="modal-faculty-consultation" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
+      <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
+        <div class="flex items-center gap-space-sm">
+          <span class="p-1.5 rounded-lg bg-secondary-container text-on-secondary-container">
+            <span class="material-symbols-outlined text-xl">event_available</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm text-base font-bold text-white">Book Faculty Consultation</h3>
+            <span class="text-xs text-on-primary-container" id="modal-faculty-subtext">Office hours appointment</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-faculty-consultation')" class="p-1 rounded-lg text-white/80 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+      
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/15 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm shrink-0">
+            FC
+          </div>
+          <div>
+            <h4 class="font-headline-sm text-sm font-bold text-on-surface" id="modal-faculty-name">Prof. R. Ramanujan</h4>
+            <span class="text-xs text-on-surface-variant" id="modal-faculty-role">Head of Department (CSE) • CS401</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-on-surface">Preferred Consultation Day &amp; Slot</label>
+          <select id="consultation-slot" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+            <option>Wednesday, Oct 1 • 02:30 PM - 03:00 PM (In-Person Room 304)</option>
+            <option>Friday, Oct 3 • 03:30 PM - 04:00 PM (Virtual Google Meet)</option>
+            <option>Monday, Oct 6 • 02:00 PM - 02:30 PM (In-Person Room 304)</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-on-surface">Discussion Topic / Reason for Consultation</label>
+          <textarea id="consultation-topic" rows="3" placeholder="Briefly describe what you'd like to discuss..." class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"></textarea>
+        </div>
+
+        <button onclick="confirmFacultyBooking()" class="w-full py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-colors shadow-sm">
+          Confirm Appointment Request
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ADD TASK MODAL (Clean, simple form) -->
+  <div id="modal-add-task" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
+      <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
+        <div class="flex items-center gap-space-sm">
+          <span class="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">
+            <span class="material-symbols-outlined text-xl">add_task</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm text-base font-bold text-white">Add New Assignment or Task</h3>
+            <span class="text-xs text-on-primary-container">Create a submission tracker for Semester IV</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-add-task')" class="p-1 rounded-lg text-white/80 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleAddTaskSubmit(event)" class="p-space-lg flex flex-col gap-space-md">
+        <!-- Title -->
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Assignment Title <span class="text-error">*</span></label>
+          <input id="form-task-title" required type="text" placeholder="e.g. CS401: Lab 5 - Binary Search Trees" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+        </div>
+
+        <!-- Subject & Priority Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Subject <span class="text-error">*</span></label>
+            <select id="form-task-subject" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+              <option value="Data Structures & Algorithms (CS401)">Data Structures (CS401)</option>
+              <option value="Database Management Systems (CS403)">DBMS (CS403)</option>
+              <option value="Operating Systems (CS402)">Operating Systems (CS402)</option>
+              <option value="Web Technologies (CS405)">Web Technologies (CS405)</option>
+              <option value="Discrete Mathematics (CS404)">Discrete Math (CS404)</option>
+              <option value="Independent Project">Independent Study</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Priority Level</label>
+            <select id="form-task-priority" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+              <option value="Urgent">Urgent (High Attention)</option>
+              <option value="High" selected>High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Due Date & Status Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Due Date <span class="text-error">*</span></label>
+            <input id="form-task-date" required type="date" value="2026-10-05" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Initial Status</label>
+            <select id="form-task-status" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+              <option value="Pending" selected>Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Optional Description -->
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Description / Instructions (Optional)</label>
+          <textarea id="form-task-desc" rows="2" placeholder="Key deliverables, rubric criteria, or problem set numbers..." class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"></textarea>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/15">
+          <button type="button" onclick="closeModal('modal-add-task')" class="px-4 py-2 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-colors shadow-sm">
+            Save Assignment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast" class="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary text-xs font-medium shadow-xl border border-outline-variant/20 flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
     <span class="material-symbols-outlined text-base text-tertiary-fixed">info</span>
@@ -1734,10 +1709,109 @@
   <!-- CLIENT LOGIC & ROUTING ENGINE                                  -->
   <!-- ============================================================== -->
   <script>
-    // Navigation / View Switcher
+    // Global Tasks Data Store
+    let tasksData = [
+      {
+        id: 1,
+        title: "CS401: Lab 4 - Self-Balancing AVL Trees & Rotations",
+        subject: "Data Structures & Algorithms (CS401)",
+        subjectCode: "CS401",
+        dueDate: "2026-10-02",
+        dueDisplay: "Tomorrow at 11:59 PM",
+        priority: "Urgent",
+        status: "In Progress",
+        description: "Implement insertion and deletion routines for AVL trees with automatic balance factor recalculation and LL, RR, LR, RL rotation re-balancing in C++.",
+        isDueSoon: true,
+        points: 100
+      },
+      {
+        id: 2,
+        title: "CS403: Project Phase 1 - Relational Schema Normalization",
+        subject: "Database Management Systems (CS403)",
+        subjectCode: "CS403",
+        dueDate: "2026-10-04",
+        dueDisplay: "Oct 4 (In 3 days)",
+        priority: "High",
+        status: "Pending",
+        description: "Formulate the normalized E-R schema for campus clinic management, verify 3NF and BCNF compliance, and write PostgreSQL DDL migration scripts with foreign keys.",
+        isDueSoon: true,
+        points: 150
+      },
+      {
+        id: 3,
+        title: "CS402: Quiz 2 - Mutexes, Semaphores & Concurrency",
+        subject: "Operating Systems (CS402)",
+        subjectCode: "CS402",
+        dueDate: "2026-10-06",
+        dueDisplay: "Oct 6 (In 5 days)",
+        priority: "Medium",
+        status: "Pending",
+        description: "Online diagnostic quiz covering POSIX thread concurrency, binary semaphores, race conditions, and Peterson's algorithm execution traces.",
+        isDueSoon: false,
+        points: 50
+      },
+      {
+        id: 4,
+        title: "CS405: UI/UX Component Architecture Prototype",
+        subject: "Web Technologies (CS405)",
+        subjectCode: "CS405",
+        dueDate: "2026-10-09",
+        dueDisplay: "Oct 9 (In 8 days)",
+        priority: "High",
+        status: "In Progress",
+        description: "Develop a reactive client-side dashboard state machine using native vanilla JavaScript event dispatching and custom components without framework dependencies.",
+        isDueSoon: false,
+        points: 100
+      },
+      {
+        id: 5,
+        title: "CS404: Problem Set 5 - Graph Isomorphism & Planarity",
+        subject: "Discrete Mathematics (CS404)",
+        subjectCode: "CS404",
+        dueDate: "2026-10-14",
+        dueDisplay: "Oct 14 (In 13 days)",
+        priority: "Low",
+        status: "Pending",
+        description: "Prove Kuratowski's theorem on non-planar subgraphs K5 and K3,3, and compute chromatic polynomials for 5 given undirected graphs.",
+        isDueSoon: false,
+        points: 75
+      },
+      {
+        id: 6,
+        title: "CS401: Lab 3 - Binary Heap & Priority Queue Operations",
+        subject: "Data Structures & Algorithms (CS401)",
+        subjectCode: "CS401",
+        dueDate: "2026-09-24",
+        dueDisplay: "Sep 24 (Submitted)",
+        priority: "High",
+        status: "Completed",
+        description: "Construct a Min-Heap with heapify-up and heapify-down in O(log n) time complexity. Verified with automated test suites.",
+        isDueSoon: false,
+        points: 100
+      },
+      {
+        id: 7,
+        title: "CS402: Lab 2 - Fork & Exec Process Hierarchy Simulator",
+        subject: "Operating Systems (CS402)",
+        subjectCode: "CS402",
+        dueDate: "2026-09-20",
+        dueDisplay: "Sep 20 (Submitted)",
+        priority: "Medium",
+        status: "Completed",
+        description: "Multi-process process tree creation using UNIX fork(), waitpid(), and execvp() system calls in C.",
+        isDueSoon: false,
+        points: 50
+      }
+    ];
+
+    let currentTaskFilter = 'all';
+
+    // Navigation / View Switcher (Dashboard, Digital Twin, Academics, Tasks & Assignments)
     function switchView(viewName) {
       const viewDashboard = document.getElementById('view-dashboard');
       const viewDigitalTwin = document.getElementById('view-digital-twin');
+      const viewAcademics = document.getElementById('view-academics');
+      const viewTasks = document.getElementById('view-tasks');
       
       // Update sidebar active highlights
       const links = document.querySelectorAll('.sidebar-link');
@@ -1747,10 +1821,14 @@
         link.removeAttribute('aria-current');
       });
 
+      // Hide all primary views first
+      if (viewDashboard) viewDashboard.classList.add('hidden');
+      if (viewDigitalTwin) viewDigitalTwin.classList.add('hidden');
+      if (viewAcademics) viewAcademics.classList.add('hidden');
+      if (viewTasks) viewTasks.classList.add('hidden');
+
       if (viewName === 'dashboard') {
         if (viewDashboard) viewDashboard.classList.remove('hidden');
-        if (viewDigitalTwin) viewDigitalTwin.classList.add('hidden');
-        
         const activeLink = document.getElementById('nav-dashboard');
         if (activeLink) {
           activeLink.classList.remove('text-on-primary-container', 'hover:bg-surface-container-highest/10', 'hover:text-on-primary');
@@ -1760,9 +1838,7 @@
         window.history.replaceState(null, null, '#dashboard');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (viewName === 'digital-twin') {
-        if (viewDashboard) viewDashboard.classList.add('hidden');
         if (viewDigitalTwin) viewDigitalTwin.classList.remove('hidden');
-
         const activeLink = document.getElementById('nav-digital-twin');
         if (activeLink) {
           activeLink.classList.remove('text-on-primary-container', 'hover:bg-surface-container-highest/10', 'hover:text-on-primary');
@@ -1770,6 +1846,27 @@
           activeLink.setAttribute('aria-current', 'page');
         }
         window.history.replaceState(null, null, '#digital-twin');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'academics') {
+        if (viewAcademics) viewAcademics.classList.remove('hidden');
+        const activeLink = document.getElementById('nav-academics');
+        if (activeLink) {
+          activeLink.classList.remove('text-on-primary-container', 'hover:bg-surface-container-highest/10', 'hover:text-on-primary');
+          activeLink.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-headline-sm');
+          activeLink.setAttribute('aria-current', 'page');
+        }
+        window.history.replaceState(null, null, '#academics');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'tasks-and-assignments' || viewName === 'tasks') {
+        if (viewTasks) viewTasks.classList.remove('hidden');
+        const activeLink = document.getElementById('nav-tasks-and-assignments');
+        if (activeLink) {
+          activeLink.classList.remove('text-on-primary-container', 'hover:bg-surface-container-highest/10', 'hover:text-on-primary');
+          activeLink.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-headline-sm');
+          activeLink.setAttribute('aria-current', 'page');
+        }
+        renderTasks();
+        window.history.replaceState(null, null, '#tasks-and-assignments');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
@@ -1781,15 +1878,18 @@
         if (path === 'dashboard') {
           e.preventDefault();
           switchView('dashboard');
+        } else if (path === 'academics') {
+          e.preventDefault();
+          switchView('academics');
+        } else if (path === 'tasks-and-assignments') {
+          e.preventDefault();
+          switchView('tasks-and-assignments');
         } else if (path === 'digital-twin') {
           e.preventDefault();
           switchView('digital-twin');
         } else if (path === 'study-planner') {
           e.preventDefault();
           openPlannerModal();
-        } else if (path === 'tasks-and-assignments') {
-          e.preventDefault();
-          openTasksModal();
         } else if (path === 'notes-and-materials') {
           e.preventDefault();
           openNotesModal();
@@ -1801,11 +1901,11 @@
           switchView('dashboard');
           scrollToElement('section-schedule');
           showToast("Viewing Today's Class Schedule");
-        } else if (path === 'academics' || path === 'performance-analytics') {
+        } else if (path === 'performance-analytics') {
           e.preventDefault();
-          switchView('dashboard');
-          scrollToElement('section-academics');
-          showToast("Viewing Subject Performance & Academics");
+          switchView('academics');
+          setAcademicSubtab('grades');
+          showToast("Viewing Academic Performance & Grades");
         } else if (path === 'notifications') {
           e.preventDefault();
           switchView('dashboard');
@@ -1820,41 +1920,295 @@
       });
     });
 
-    // Checkbox toggle for deadlines
-    let completedDeadlines = 0;
-    function toggleDeadline(id) {
-      const item = document.querySelector(`.deadline-item[data-id="${id}"]`);
-      const chk = document.getElementById(`chk-deadline-${id}`);
-      const countEl = document.getElementById('active-deadlines-count');
-      if (!item || !chk) return;
+    // TASK MANAGEMENT LOGIC
+    function renderTasks() {
+      const container = document.getElementById('tasks-list-container');
+      if (!container) return;
 
-      const title = item.querySelector('.deadline-title');
-      const badge = item.querySelector('.deadline-badge');
+      const subjectFilter = document.getElementById('task-subject-filter')?.value || 'all';
+      const priorityFilter = document.getElementById('task-priority-filter')?.value || 'all';
+      const searchVal = (document.getElementById('task-search-input')?.value || '').toLowerCase().trim();
 
-      if (chk.checked) {
-        completedDeadlines++;
-        item.classList.add('opacity-60', 'line-through');
-        if (badge) {
-          badge.textContent = "Done";
-          badge.className = "deadline-badge px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-label-sm text-[10px] font-bold";
+      // Filter tasks
+      let filtered = tasksData.filter(t => {
+        // Tab filter (all, pending, due-soon, completed)
+        if (currentTaskFilter === 'pending' && t.status === 'Completed') return false;
+        if (currentTaskFilter === 'due-soon' && (!t.isDueSoon || t.status === 'Completed')) return false;
+        if (currentTaskFilter === 'completed' && t.status !== 'Completed') return false;
+
+        // Subject filter
+        if (subjectFilter !== 'all' && t.subjectCode !== subjectFilter && !t.subject.includes(subjectFilter)) return false;
+
+        // Priority filter
+        if (priorityFilter !== 'all' && t.priority !== priorityFilter) return false;
+
+        // Search filter
+        if (searchVal && !t.title.toLowerCase().includes(searchVal) && !t.subject.toLowerCase().includes(searchVal) && !(t.description || '').toLowerCase().includes(searchVal)) {
+          return false;
         }
-        showToast("Assignment marked as completed! 🎉");
+
+        return true;
+      });
+
+      // Update counters
+      updateTaskCounters();
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-surface-container-lowest rounded-2xl p-space-xl border border-outline-variant/15 flex flex-col items-center justify-center text-center gap-space-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-4xl text-outline-variant">task_alt</span>
+            <span class="font-headline-sm text-base font-bold text-on-surface">No tasks found</span>
+            <p class="text-xs max-w-sm">No assignments match your selected filter criteria. Try changing the filter or click "Add Task" to create one.</p>
+            <button onclick="setTaskFilter('all')" class="mt-2 px-3 py-1.5 rounded-lg bg-surface-container text-xs font-semibold text-secondary hover:bg-surface-container-high transition-colors">
+              Reset Filters
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(task => {
+        const isDone = task.status === 'Completed';
+
+        // Priority chip styles
+        let priorityChipClass = "bg-secondary-container/15 text-secondary border-secondary/20";
+        if (task.priority === 'Urgent') priorityChipClass = "bg-error/10 text-error border-error/20";
+        else if (task.priority === 'High') priorityChipClass = "bg-amber-500/10 text-amber-700 border-amber-500/20";
+        else if (task.priority === 'Low') priorityChipClass = "bg-emerald-500/10 text-emerald-700 border-emerald-500/20";
+
+        // Status badge
+        let statusBadgeClass = "bg-surface-container text-on-surface-variant";
+        if (task.status === 'In Progress') statusBadgeClass = "bg-secondary-container/15 text-secondary font-semibold";
+        else if (task.status === 'Completed') statusBadgeClass = "bg-emerald-500/15 text-emerald-700 font-bold";
+        else if (task.status === 'Submitted') statusBadgeClass = "bg-indigo-500/15 text-indigo-700 font-semibold";
+
+        return `
+          <div class="task-card p-space-md rounded-2xl bg-surface-container-lowest border border-outline-variant/15 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md ${isDone ? 'opacity-70 bg-surface-container-low/40' : ''}">
+            
+            <div class="flex items-start gap-space-sm flex-1">
+              <!-- Completed Checkbox -->
+              <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTaskDone(${task.id})" class="mt-1 w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary cursor-pointer shrink-0" title="${isDone ? 'Reopen task' : 'Mark as completed'}"/>
+              
+              <div class="flex flex-col gap-1 flex-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-label-md text-sm font-bold ${isDone ? 'line-through text-on-surface-variant' : 'text-on-surface'}">${escapeHtml(task.title)}</span>
+                  <span class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${priorityChipClass}">${task.priority}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] ${statusBadgeClass}">${task.status}</span>
+                </div>
+
+                <div class="flex items-center gap-space-md text-xs text-on-surface-variant flex-wrap mt-0.5">
+                  <span class="font-medium text-secondary flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[13px]">school</span>
+                    <span>${escapeHtml(task.subject)}</span>
+                  </span>
+                  <span>•</span>
+                  <span class="flex items-center gap-1 ${task.isDueSoon && !isDone ? 'text-error font-semibold' : 'text-on-surface-variant'}">
+                    <span class="material-symbols-outlined text-[13px]">${task.isDueSoon && !isDone ? 'timer' : 'calendar_month'}</span>
+                    <span>Due: ${task.dueDisplay || task.dueDate}</span>
+                  </span>
+                  ${task.points ? `<span>•</span><span>${task.points} Pts</span>` : ''}
+                </div>
+
+                ${task.description ? `
+                  <p class="font-body-sm text-xs text-on-surface-variant mt-1 leading-relaxed bg-surface-container-low/50 p-2 rounded-xl border border-outline-variant/10">
+                    ${escapeHtml(task.description)}
+                  </p>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Task Actions & Status Dropdown -->
+            <div class="flex items-center gap-2 self-end sm:self-center shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-outline-variant/10 w-full sm:w-auto justify-end">
+              <!-- Status Select Dropdown -->
+              <div class="relative">
+                <select onchange="changeTaskStatus(${task.id}, this.value)" class="px-2.5 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-semibold text-on-surface focus:ring-2 focus:ring-secondary focus:outline-none cursor-pointer">
+                  <option value="Pending" ${task.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                  <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                  <option value="Submitted" ${task.status === 'Submitted' ? 'selected' : ''}>Submitted</option>
+                  <option value="Completed" ${task.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                </select>
+              </div>
+
+              <!-- AI Help -->
+              <button onclick="openAIModal('Provide step-by-step guidance for assignment: ${escapeHtml(task.title)}')" class="p-1.5 rounded-xl bg-surface-container hover:bg-secondary hover:text-white transition-colors text-on-surface" title="Twin Copilot Help">
+                <span class="material-symbols-outlined text-base">smart_toy</span>
+              </button>
+
+              <!-- Delete Task -->
+              <button onclick="deleteTask(${task.id})" class="p-1.5 rounded-xl bg-surface-container hover:bg-error/10 hover:text-error transition-colors text-on-surface-variant" title="Delete Task">
+                <span class="material-symbols-outlined text-base">delete</span>
+              </button>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateTaskCounters() {
+      const total = tasksData.length;
+      const pending = tasksData.filter(t => t.status !== 'Completed').length;
+      const dueSoon = tasksData.filter(t => t.isDueSoon && t.status !== 'Completed').length;
+      const completed = tasksData.filter(t => t.status === 'Completed').length;
+
+      // Update stat cards
+      const elTotal = document.getElementById('stat-total-tasks');
+      const elPending = document.getElementById('stat-pending-tasks');
+      const elDueSoon = document.getElementById('stat-duesoon-tasks');
+      const elCompleted = document.getElementById('stat-completed-tasks');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elPending) elPending.textContent = pending;
+      if (elDueSoon) elDueSoon.textContent = dueSoon;
+      if (elCompleted) elCompleted.textContent = completed;
+
+      // Update filter button badges
+      const bAll = document.getElementById('btn-count-all');
+      const bPending = document.getElementById('btn-count-pending');
+      const bDueSoon = document.getElementById('btn-count-due-soon');
+      const bCompleted = document.getElementById('btn-count-completed');
+
+      if (bAll) bAll.textContent = total;
+      if (bPending) bPending.textContent = pending;
+      if (bDueSoon) bDueSoon.textContent = dueSoon;
+      if (bCompleted) bCompleted.textContent = completed;
+
+      // Also update dashboard counter
+      const activeDeadlinesCount = document.getElementById('active-deadlines-count');
+      if (activeDeadlinesCount) activeDeadlinesCount.textContent = pending;
+    }
+
+    function setTaskFilter(filterName) {
+      currentTaskFilter = filterName;
+      document.querySelectorAll('.task-filter-btn').forEach(btn => {
+        btn.className = "task-filter-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById(`filter-btn-${filterName}`);
+      if (activeBtn) {
+        activeBtn.className = "task-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap";
+      }
+      renderTasks();
+      showToast(`Showing: ${filterName.toUpperCase()} tasks`);
+    }
+
+    function filterTasksByControls() {
+      renderTasks();
+    }
+
+    function toggleTaskDone(id) {
+      const task = tasksData.find(t => t.id === id);
+      if (!task) return;
+      if (task.status === 'Completed') {
+        task.status = 'Pending';
+        showToast(`Task reopened: ${task.title.split(':')[0]}`);
       } else {
-        completedDeadlines = Math.max(0, completedDeadlines - 1);
-        item.classList.remove('opacity-60', 'line-through');
-        if (badge) {
-          badge.textContent = id === 1 ? "Urgent" : (id === 2 ? "High" : (id === 3 ? "Medium" : "Normal"));
-          badge.className = id === 1 
-            ? "deadline-badge px-1.5 py-0.5 rounded bg-error/10 text-error font-label-sm text-[10px] font-bold"
-            : (id === 2 
-              ? "deadline-badge px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 font-label-sm text-[10px] font-bold"
-              : "deadline-badge px-1.5 py-0.5 rounded bg-secondary-container/15 text-secondary font-label-sm text-[10px] font-bold");
-        }
-        showToast("Assignment reinstated to active list");
+        task.status = 'Completed';
+        showToast(`Task completed! 🎉 ${task.title.split(':')[0]}`);
       }
-      if (countEl) {
-        countEl.textContent = Math.max(0, 4 - completedDeadlines);
+      renderTasks();
+    }
+
+    function changeTaskStatus(id, newStatus) {
+      const task = tasksData.find(t => t.id === id);
+      if (!task) return;
+      task.status = newStatus;
+      showToast(`Status updated to "${newStatus}"`);
+      renderTasks();
+    }
+
+    function deleteTask(id) {
+      const idx = tasksData.findIndex(t => t.id === id);
+      if (idx !== -1) {
+        const removed = tasksData.splice(idx, 1)[0];
+        showToast(`Deleted: ${removed.title.split(':')[0]}`);
+        renderTasks();
       }
+    }
+
+    function openAddTaskModal() {
+      openModal('modal-add-task');
+    }
+
+    function handleAddTaskSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('form-task-title')?.value.trim();
+      const subject = document.getElementById('form-task-subject')?.value;
+      const priority = document.getElementById('form-task-priority')?.value;
+      const dueDate = document.getElementById('form-task-date')?.value;
+      const status = document.getElementById('form-task-status')?.value;
+      const desc = document.getElementById('form-task-desc')?.value.trim();
+
+      if (!title || !dueDate) return;
+
+      const newTask = {
+        id: Date.now(),
+        title: title,
+        subject: subject,
+        subjectCode: subject.includes('CS') ? subject.match(/CS\d{3}/)?.[0] || 'GEN' : 'GEN',
+        dueDate: dueDate,
+        dueDisplay: dueDate,
+        priority: priority,
+        status: status,
+        description: desc,
+        isDueSoon: false,
+        points: 100
+      };
+
+      tasksData.unshift(newTask);
+      closeModal('modal-add-task');
+      e.target.reset();
+      renderTasks();
+      showToast(`Added assignment: ${title}`);
+    }
+
+    // Academics Subtabs Switcher
+    function setAcademicSubtab(tabName) {
+      document.querySelectorAll('.academic-subtab-btn').forEach(btn => {
+        btn.className = "academic-subtab-btn px-space-md py-2 rounded-xl text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById(`tab-academic-${tabName}`);
+      if (activeBtn) {
+        activeBtn.className = "academic-subtab-btn px-space-md py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap";
+      }
+
+      const allSections = document.querySelectorAll('.academic-section');
+      if (tabName === 'all') {
+        allSections.forEach(sec => sec.classList.remove('hidden'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast("Displaying complete academic overview");
+      } else {
+        const targetId = `academic-sec-${tabName}`;
+        allSections.forEach(sec => {
+          if (sec.id === targetId) {
+            sec.classList.remove('hidden');
+            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            sec.classList.add('hidden');
+          }
+        });
+        showToast(`Filtered to: ${tabName.toUpperCase()}`);
+      }
+    }
+
+    // Faculty Modal Logic
+    let currentFacultySelected = "";
+    function openFacultyModal(name, role, course) {
+      currentFacultySelected = name;
+      const modal = document.getElementById('modal-faculty-consultation');
+      const nameEl = document.getElementById('modal-faculty-name');
+      const roleEl = document.getElementById('modal-faculty-role');
+      const subEl = document.getElementById('modal-faculty-subtext');
+      
+      if (nameEl) nameEl.textContent = name;
+      if (roleEl) roleEl.textContent = `${role} • ${course}`;
+      if (subEl) subEl.textContent = `Office hours consultation with ${name}`;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function confirmFacultyBooking() {
+      const slot = document.getElementById('consultation-slot').value;
+      closeModal('modal-faculty-consultation');
+      showToast(`Appointment scheduled with ${currentFacultySelected}! Slot: ${slot.split('•')[0]}`);
     }
 
     // Modal Helpers
@@ -1873,7 +2227,6 @@
       }
     }
     function openPlannerModal() { openModal('modal-study-planner'); }
-    function openTasksModal() { openModal('modal-tasks'); }
     function openNotesModal(subject) {
       openModal('modal-notes');
       if (subject) {
@@ -1900,7 +2253,6 @@
       const chatContainer = document.getElementById('chat-messages');
       if (!chatContainer) return;
 
-      // User Message
       const userBubble = document.createElement('div');
       userBubble.className = "flex items-start justify-end gap-space-sm self-end max-w-[85%]";
       userBubble.innerHTML = `
@@ -1911,7 +2263,6 @@
       chatContainer.appendChild(userBubble);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
-      // AI Response
       setTimeout(() => {
         const aiBubble = document.createElement('div');
         aiBubble.className = "flex items-start gap-space-sm max-w-[85%]";
@@ -1941,29 +2292,6 @@
       }, 400);
     }
 
-    function addNewCustomTask() {
-      const input = document.getElementById('new-task-input');
-      const list = document.getElementById('modal-tasks-list');
-      if (!input || !input.value.trim() || !list) return;
-      
-      const taskText = input.value.trim();
-      input.value = '';
-
-      const taskDiv = document.createElement('div');
-      taskDiv.className = "p-3 rounded-xl bg-surface-container-low border border-outline-variant/10 flex items-center justify-between";
-      taskDiv.innerHTML = `
-        <div>
-          <span class="font-label-md text-xs font-bold text-on-surface">${escapeHtml(taskText)}</span>
-          <p class="text-[11px] text-secondary font-medium">Added to personal study queue</p>
-        </div>
-        <button onclick="this.parentElement.remove(); showToast('Task completed');" class="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface text-xs font-semibold hover:bg-emerald-500 hover:text-white transition-colors">
-          Mark Done
-        </button>
-      `;
-      list.prepend(taskDiv);
-      showToast("Custom task added to tracker!");
-    }
-
     // Digital Twin subtabs switcher
     function setTwinSubtab(btn, tab) {
       document.querySelectorAll('.twin-subtab').forEach(b => {
@@ -1973,12 +2301,10 @@
       showToast(`Twin telemetry filtered: ${tab.toUpperCase()} view`);
     }
 
-    // Simulation runner
     function runSimulation() {
       showToast("Running Twin Monte Carlo Simulation: +10 hrs study shifts projected GPA to 9.24 🚀");
     }
 
-    // Notifications
     function markAllNotificationsRead() {
       const dot = document.getElementById('notif-badge-dot');
       if (dot) dot.remove();
@@ -1992,7 +2318,6 @@
       showToast("Viewing Recent Notifications");
     }
 
-    // Smooth Scroll Helper
     function scrollToElement(id) {
       const el = document.getElementById(id);
       if (el) {
@@ -2002,7 +2327,6 @@
       }
     }
 
-    // Toast Notification Display
     let toastTimeout;
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -2023,14 +2347,24 @@
     }
 
     // Initialize View on Page Load based on hash
-    window.addEventListener('DOMContentLoaded', () => {
+    function handleRoute() {
       const hash = window.location.hash;
       if (hash === '#digital-twin') {
         switchView('digital-twin');
+      } else if (hash === '#academics') {
+        switchView('academics');
+      } else if (hash === '#tasks-and-assignments' || hash === '#tasks') {
+        switchView('tasks-and-assignments');
       } else {
         switchView('dashboard');
       }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTasks();
+      handleRoute();
     });
+    window.addEventListener('hashchange', handleRoute);
   </script>
 </body>
 </html>
