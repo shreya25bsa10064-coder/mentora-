@@ -396,7 +396,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md pt-space-xs">
             
             <!-- Quick Action 1: Study Planner -->
-            <button onclick="openPlannerModal()" class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all text-left border border-outline-variant/10 group active:scale-[0.99]">
+            <button onclick="switchView('study-planner')" class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all text-left border border-outline-variant/10 group active:scale-[0.99]">
               <div class="p-2.5 rounded-xl bg-secondary-container/15 text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors shadow-sm">
                 <span class="material-symbols-outlined text-xl">auto_schedule</span>
               </div>
@@ -1370,6 +1370,251 @@
 
       </section>
 
+      <!-- ============================================================== -->
+      <!-- VIEW 5: PERSONALIZED STUDY PLANNER PAGE                       -->
+      <!-- ============================================================== -->
+      <section id="view-study-planner" class="flex flex-col w-full pb-space-2xl gap-gutter-lg hidden fade-in">
+        
+        <!-- Header Banner: Title, Twin Copilot Badges, Generate & Add Buttons -->
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-sm border border-outline-variant/20 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+          <div class="flex items-start sm:items-center gap-space-md">
+            <div class="p-3.5 rounded-2xl bg-secondary-container/20 text-secondary ring-4 ring-secondary-container/10 shrink-0">
+              <span class="material-symbols-outlined text-3xl">auto_schedule</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-space-sm flex-wrap">
+                <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Personalized Study Planner</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-xs font-semibold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                  AI Velocity Synced
+                </span>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Adaptive study blocks calibrated to your Semester IV syllabus, exam dates, and cognitive focus patterns.
+              </p>
+            </div>
+          </div>
+
+          <!-- Actions: Generate Plan & Add Session -->
+          <div class="flex items-center gap-space-sm self-start md:self-center shrink-0 flex-wrap">
+            <!-- Generate Study Plan Button -->
+            <button onclick="generateStudyPlan()" id="btn-generate-plan" class="px-space-md py-2.5 rounded-xl bg-primary-container text-on-primary font-label-md text-xs font-semibold hover:bg-primary-container/90 transition-all flex items-center gap-1.5 shadow-sm active:scale-95 group">
+              <span class="material-symbols-outlined text-base text-tertiary-fixed group-hover:rotate-12 transition-transform">auto_awesome</span>
+              <span>Generate Study Plan</span>
+            </button>
+
+            <!-- Add Study Session Button -->
+            <button onclick="openAddSessionModal()" class="px-space-md py-2.5 rounded-xl bg-secondary text-on-secondary font-label-md text-xs font-semibold hover:bg-secondary/90 transition-all flex items-center gap-1.5 shadow-sm active:scale-95">
+              <span class="material-symbols-outlined text-base">add_circle</span>
+              <span>Add Session</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Key Metrics / KPI Summary Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-md">
+          
+          <!-- Metric 1: Today's Plan Time -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setPlannerSubtab('today')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Today's Study</span>
+              <span class="p-1 rounded bg-secondary-container/20 text-secondary"><span class="material-symbols-outlined text-sm">schedule</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-on-surface" id="stat-today-hours">2h 45m</span>
+              <span class="text-xs text-on-surface-variant">Planned</span>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-secondary font-medium">
+              <span id="stat-today-sessions-count">4 Sessions</span>
+              <span class="text-emerald-600 font-bold" id="stat-today-done-time">50m done</span>
+            </div>
+          </div>
+
+          <!-- Metric 2: Weekly Progress -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setPlannerSubtab('weekly')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Weekly Velocity</span>
+              <span class="p-1 rounded bg-indigo-500/10 text-indigo-600"><span class="material-symbols-outlined text-sm">trending_up</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-indigo-600" id="stat-weekly-hours">14.0h</span>
+              <span class="text-xs text-on-surface-variant" id="stat-weekly-target">/ 18h Target</span>
+            </div>
+            <!-- Mini Progress bar -->
+            <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+              <div id="stat-weekly-bar" class="bg-indigo-600 h-1.5 rounded-full transition-all duration-500" style="width: 78%"></div>
+            </div>
+            <span class="text-[11px] text-indigo-600 font-medium" id="stat-weekly-subtext">+1.5h ahead of schedule</span>
+          </div>
+
+          <!-- Metric 3: Revision Tracking -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setPlannerSubtab('revision')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Revision Units</span>
+              <span class="p-1 rounded bg-amber-500/10 text-amber-700"><span class="material-symbols-outlined text-sm">history_edu</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-amber-700" id="stat-revision-units">8 / 12</span>
+              <span class="text-xs text-on-surface-variant">Mastered</span>
+            </div>
+            <span class="text-[11px] text-amber-700 font-medium">Spaced Repetition: 3 Due Soon</span>
+          </div>
+
+          <!-- Metric 4: Exam Readiness -->
+          <div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-xs cursor-pointer hover:shadow-md transition-shadow" onclick="setPlannerSubtab('exam-prep')">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Exam Readiness</span>
+              <span class="p-1 rounded bg-emerald-500/10 text-emerald-600"><span class="material-symbols-outlined text-sm">verified</span></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-metric-stat text-2xl font-extrabold text-emerald-600" id="stat-exam-readiness">84%</span>
+              <span class="text-xs text-emerald-600 font-bold">Strong</span>
+            </div>
+            <span class="text-[11px] text-on-surface-variant">Next: CS401 Mid-Sem (12 Days)</span>
+          </div>
+
+        </div>
+
+        <!-- Subtabs Navigation Bar -->
+        <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+          <div class="flex items-center gap-1.5 p-1 bg-surface-container rounded-xl overflow-x-auto select-none">
+            <button onclick="setPlannerSubtab('overview')" id="planner-tab-overview" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap">
+              All Overview
+            </button>
+            <button onclick="setPlannerSubtab('today')" id="planner-tab-today" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Today's Plan (<span id="tab-count-today">4</span>)
+            </button>
+            <button onclick="setPlannerSubtab('weekly')" id="planner-tab-weekly" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Weekly Schedule
+            </button>
+            <button onclick="setPlannerSubtab('exam-prep')" id="planner-tab-exam-prep" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Exam Preparation
+            </button>
+            <button onclick="setPlannerSubtab('revision')" id="planner-tab-revision" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Revision Tracking
+            </button>
+            <button onclick="setPlannerSubtab('goals')" id="planner-tab-goals" class="planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap">
+              Goals &amp; Subject Time
+            </button>
+          </div>
+
+          <!-- Quick Day / Status Filter for Sessions -->
+          <div class="flex items-center gap-2">
+            <select id="session-day-filter" onchange="filterSessionsByDay()" class="px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-medium text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
+              <option value="all">All Planned Sessions</option>
+              <option value="Today" selected>Today's Sessions</option>
+              <option value="Tomorrow">Tomorrow's Sessions</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SECTION 1: TODAY'S STUDY PLAN & SESSIONS -->
+        <div id="planner-sec-today" class="planner-section flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-sm text-base font-bold text-on-surface">Study Sessions &amp; Action Blocks</h2>
+              <span class="px-2 py-0.5 rounded-md bg-secondary-container/20 text-secondary text-[11px] font-semibold">Priority Calibrated</span>
+            </div>
+            <button onclick="openAddSessionModal()" class="text-xs font-semibold text-secondary hover:underline flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">add</span> Add Session
+            </button>
+          </div>
+
+          <!-- Dynamic Sessions Container -->
+          <div id="sessions-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+        </div>
+
+        <!-- SECTION 2: WEEKLY STUDY SCHEDULE -->
+        <div id="planner-sec-weekly" class="planner-section flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-sm text-base font-bold text-on-surface">Weekly Study Schedule (Self-Study &amp; Revision Hours)</h2>
+              <span class="text-xs text-on-surface-variant">Target: 18 hrs / week</span>
+            </div>
+            <span class="text-xs text-secondary font-medium">Monday – Sunday Distribution</span>
+          </div>
+
+          <!-- 7-day Weekly Grid -->
+          <div id="weekly-schedule-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-space-sm">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+        </div>
+
+        <!-- SECTION 3: EXAM PREPARATION PLAN -->
+        <div id="planner-sec-exam-prep" class="planner-section flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-sm text-base font-bold text-on-surface">Exam Preparation Plan (Mid-Term Roadmaps)</h2>
+              <span class="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-700 text-[11px] font-semibold">Upcoming Sprints</span>
+            </div>
+            <span class="text-xs text-on-surface-variant">Weighted by Credit Value</span>
+          </div>
+
+          <div id="exam-prep-container" class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+        </div>
+
+        <!-- SECTION 4: REVISION TRACKING (Spaced Repetition) -->
+        <div id="planner-sec-revision" class="planner-section flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-sm text-base font-bold text-on-surface">Revision Tracking (Spaced Repetition &amp; Retention)</h2>
+              <span class="px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-600 text-[11px] font-semibold">Active Recall</span>
+            </div>
+            <span class="text-xs text-on-surface-variant">Calibrated to Ebbinghaus Forgetting Curve</span>
+          </div>
+
+          <div id="revision-tracking-container" class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/15 overflow-hidden">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+        </div>
+
+        <!-- SECTION 5: STUDY GOALS & SUBJECT-WISE STUDY TIME -->
+        <div id="planner-sec-goals" class="planner-section grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+          
+          <!-- Left Column: Study Goals (7 cols) -->
+          <div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="p-1.5 rounded-lg bg-secondary-container/20 text-secondary">
+                  <span class="material-symbols-outlined text-base">flag</span>
+                </div>
+                <h2 class="font-headline-sm text-base font-bold text-on-surface">Study Goals &amp; Milestones</h2>
+              </div>
+              <button onclick="promptAddGoal()" class="text-xs font-semibold text-secondary hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add</span> New Goal
+              </button>
+            </div>
+
+            <div id="study-goals-list" class="flex flex-col gap-space-sm">
+              <!-- Rendered dynamically via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Right Column: Subject-Wise Study Time (5 cols) -->
+          <div class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-600">
+                  <span class="material-symbols-outlined text-base">pie_chart</span>
+                </div>
+                <h2 class="font-headline-sm text-base font-bold text-on-surface">Subject-Wise Study Time</h2>
+              </div>
+              <span class="text-xs text-on-surface-variant font-medium">This Week</span>
+            </div>
+
+            <div id="subject-study-time-list" class="flex flex-col gap-space-md">
+              <!-- Rendered dynamically via JavaScript -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
     </main>
   </div>
 
@@ -1699,6 +1944,149 @@
     </div>
   </div>
 
+  <!-- 7. ADD / EDIT STUDY SESSION MODAL -->
+  <div id="modal-session-editor" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
+      <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
+        <div class="flex items-center gap-space-sm">
+          <span class="p-1.5 rounded-lg bg-secondary-container/20 text-tertiary-fixed">
+            <span class="material-symbols-outlined text-xl" id="session-modal-icon">auto_schedule</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm text-base font-bold text-white" id="session-modal-title">Schedule Study Session</h3>
+            <span class="text-xs text-on-primary-container">Personalized Study Time Block</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-session-editor')" class="p-1 rounded-lg text-white/80 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveSession(event)" class="p-space-lg flex flex-col gap-space-md">
+        <input type="hidden" id="form-session-id" value=""/>
+
+        <!-- Subject & Topic -->
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Subject <span class="text-error">*</span></label>
+          <select id="form-session-subject" required class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+            <option value="Data Structures & Algorithms (CS401)">Data Structures (CS401)</option>
+            <option value="Database Management Systems (CS403)">DBMS (CS403)</option>
+            <option value="Operating Systems (CS402)">Operating Systems (CS402)</option>
+            <option value="Discrete Mathematics (CS404)">Discrete Math (CS404)</option>
+            <option value="Web Technologies (CS405)">Web Technologies (CS405)</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Topic / Focus Chapter <span class="text-error">*</span></label>
+          <input id="form-session-topic" required type="text" placeholder="e.g. AVL Trees: Rotations & Balancing Problems" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+        </div>
+
+        <!-- Day, Start Time & Duration -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Day / Date <span class="text-error">*</span></label>
+            <select id="form-session-day" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+              <option value="Today" selected>Today (Friday)</option>
+              <option value="Tomorrow">Tomorrow (Saturday)</option>
+              <option value="Sunday">Sunday</option>
+              <option value="Monday">Monday</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Start Time <span class="text-error">*</span></label>
+            <input id="form-session-time" required type="text" value="04:30 PM" placeholder="e.g. 04:30 PM" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Duration <span class="text-error">*</span></label>
+            <select id="form-session-duration" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+              <option value="30">30 mins</option>
+              <option value="45">45 mins</option>
+              <option value="60" selected>60 mins (1h)</option>
+              <option value="75">75 mins (1h 15m)</option>
+              <option value="90">90 mins (1.5h)</option>
+              <option value="120">120 mins (2h)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Status & Objective / Notes -->
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Completion Status</label>
+          <select id="form-session-status" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none">
+            <option value="Scheduled" selected>Scheduled</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Notes / Study Objective</label>
+          <textarea id="form-session-notes" rows="2" placeholder="e.g. Solve 4 rotation problems and review balance factor code..." class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/15">
+          <button type="button" onclick="closeModal('modal-session-editor')" class="px-4 py-2 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="btn-save-session" class="px-5 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-colors shadow-sm">
+            Save Session
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 8. ADD STUDY GOAL MODAL -->
+  <div id="modal-add-goal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
+      <div class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
+        <div class="flex items-center gap-space-sm">
+          <span class="p-1.5 rounded-lg bg-secondary-container/20 text-tertiary-fixed">
+            <span class="material-symbols-outlined text-xl">flag</span>
+          </span>
+          <div>
+            <h3 class="font-headline-sm text-base font-bold text-white">Add Study Goal</h3>
+            <span class="text-xs text-on-primary-container">Target for Semester IV</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-add-goal')" class="p-1 rounded-lg text-white/80 hover:text-white">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveGoal(event)" class="p-space-lg flex flex-col gap-space-md">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-semibold text-on-surface">Goal Description <span class="text-error">*</span></label>
+          <input id="form-goal-title" required type="text" placeholder="e.g. Master B+ Tree Indexing queries" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Target Quantity</label>
+            <input id="form-goal-target" required type="number" step="0.5" value="5" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-semibold text-on-surface">Unit</label>
+            <input id="form-goal-unit" required type="text" value="hours" placeholder="e.g. hours / problems" class="w-full px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none"/>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/15">
+          <button type="button" onclick="closeModal('modal-add-goal')" class="px-4 py-2 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-colors shadow-sm">
+            Create Goal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast" class="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary text-xs font-medium shadow-xl border border-outline-variant/20 flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
     <span class="material-symbols-outlined text-base text-tertiary-fixed">info</span>
@@ -1812,6 +2200,7 @@
       const viewDigitalTwin = document.getElementById('view-digital-twin');
       const viewAcademics = document.getElementById('view-academics');
       const viewTasks = document.getElementById('view-tasks');
+      const viewStudyPlanner = document.getElementById('view-study-planner');
       
       // Update sidebar active highlights
       const links = document.querySelectorAll('.sidebar-link');
@@ -1826,6 +2215,7 @@
       if (viewDigitalTwin) viewDigitalTwin.classList.add('hidden');
       if (viewAcademics) viewAcademics.classList.add('hidden');
       if (viewTasks) viewTasks.classList.add('hidden');
+      if (viewStudyPlanner) viewStudyPlanner.classList.add('hidden');
 
       if (viewName === 'dashboard') {
         if (viewDashboard) viewDashboard.classList.remove('hidden');
@@ -1868,6 +2258,17 @@
         renderTasks();
         window.history.replaceState(null, null, '#tasks-and-assignments');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'study-planner' || viewName === 'planner') {
+        if (viewStudyPlanner) viewStudyPlanner.classList.remove('hidden');
+        const activeLink = document.getElementById('nav-study-planner');
+        if (activeLink) {
+          activeLink.classList.remove('text-on-primary-container', 'hover:bg-surface-container-highest/10', 'hover:text-on-primary');
+          activeLink.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-headline-sm');
+          activeLink.setAttribute('aria-current', 'page');
+        }
+        renderStudyPlanner();
+        window.history.replaceState(null, null, '#study-planner');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
@@ -1884,12 +2285,12 @@
         } else if (path === 'tasks-and-assignments') {
           e.preventDefault();
           switchView('tasks-and-assignments');
+        } else if (path === 'study-planner') {
+          e.preventDefault();
+          switchView('study-planner');
         } else if (path === 'digital-twin') {
           e.preventDefault();
           switchView('digital-twin');
-        } else if (path === 'study-planner') {
-          e.preventDefault();
-          openPlannerModal();
         } else if (path === 'notes-and-materials') {
           e.preventDefault();
           openNotesModal();
@@ -2292,6 +2693,826 @@
       }, 400);
     }
 
+    // ==============================================================
+    // STUDY PLANNER DATA & ENGINE
+    // ==============================================================
+    let studySessionsData = [
+      {
+        id: 101,
+        subject: "Data Structures & Algorithms (CS401)",
+        subjectCode: "CS401",
+        topic: "AVL Trees: Balancing & Rotations (LL, RR, LR, RL)",
+        day: "Today",
+        date: "2026-10-02",
+        startTime: "04:30 PM",
+        duration: 75,
+        status: "In Progress",
+        notes: "Work through 4 rotation exercises and code balance factor updates.",
+        examLinked: "Mid-Sem Unit 3",
+        colorBadge: "bg-indigo-500/10 text-indigo-700 border-indigo-500/20"
+      },
+      {
+        id: 102,
+        subject: "Database Management Systems (CS403)",
+        subjectCode: "CS403",
+        topic: "3NF & BCNF Lossless Decomposition Practice",
+        day: "Today",
+        date: "2026-10-02",
+        startTime: "07:00 PM",
+        duration: 60,
+        status: "Scheduled",
+        notes: "Solve 15 MCQ & schema decomposition proofs from Unit 2.",
+        examLinked: "Mid-Sem Unit 2",
+        colorBadge: "bg-amber-500/10 text-amber-800 border-amber-500/20"
+      },
+      {
+        id: 103,
+        subject: "Operating Systems (CS402)",
+        subjectCode: "CS402",
+        topic: "Process Synchronization: Semaphores & Deadlock Prevention",
+        day: "Today",
+        date: "2026-10-02",
+        startTime: "09:15 PM",
+        duration: 45,
+        status: "Scheduled",
+        notes: "Review Banker's algorithm safe sequence calculation.",
+        examLinked: "Mid-Sem Unit 2",
+        colorBadge: "bg-rose-500/10 text-rose-700 border-rose-500/20"
+      },
+      {
+        id: 104,
+        subject: "Discrete Mathematics (CS404)",
+        subjectCode: "CS404",
+        topic: "Graph Theory: Chromatic Numbers & Planar Graphs",
+        day: "Today",
+        date: "2026-10-02",
+        startTime: "11:30 AM",
+        duration: 50,
+        status: "Completed",
+        notes: "Proved 4-color theorem basics and Kuratowski's theorem.",
+        examLinked: "Mid-Sem Unit 4",
+        colorBadge: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+      },
+      {
+        id: 105,
+        subject: "Data Structures & Algorithms (CS401)",
+        subjectCode: "CS401",
+        topic: "Binary Heaps & Priority Queues Code Sprint",
+        day: "Tomorrow",
+        date: "2026-10-03",
+        startTime: "05:00 PM",
+        duration: 60,
+        status: "Scheduled",
+        notes: "Implement min-heap sift-up/down operations in C++.",
+        examLinked: "Mid-Sem Unit 3",
+        colorBadge: "bg-indigo-500/10 text-indigo-700 border-indigo-500/20"
+      },
+      {
+        id: 106,
+        subject: "Web Technologies (CS405)",
+        subjectCode: "CS405",
+        topic: "Modern CSS Grid & Flexbox Responsive Systems",
+        day: "Tomorrow",
+        date: "2026-10-03",
+        startTime: "07:30 PM",
+        duration: 45,
+        status: "Scheduled",
+        notes: "Build responsive layout for portfolio project.",
+        examLinked: "Practical Lab 3",
+        colorBadge: "bg-teal-500/10 text-teal-700 border-teal-500/20"
+      }
+    ];
+
+    let weeklyScheduleData = [
+      { day: "Mon", fullDay: "Monday", hoursPlanned: 2.5, hoursDone: 2.5, subjects: ["CS401", "CS402"], status: "Completed" },
+      { day: "Tue", fullDay: "Tuesday", hoursPlanned: 3.0, hoursDone: 3.0, subjects: ["CS403", "CS404"], status: "Completed" },
+      { day: "Wed", fullDay: "Wednesday", hoursPlanned: 2.5, hoursDone: 2.5, subjects: ["CS401", "CS405"], status: "Completed" },
+      { day: "Thu", fullDay: "Thursday", hoursPlanned: 3.0, hoursDone: 3.0, subjects: ["CS402", "CS403"], status: "Completed" },
+      { day: "Fri", fullDay: "Friday (Today)", hoursPlanned: 3.8, hoursDone: 1.5, subjects: ["CS401", "CS403", "CS402"], status: "In Progress", isCurrent: true },
+      { day: "Sat", fullDay: "Saturday", hoursPlanned: 4.0, hoursDone: 0.0, subjects: ["CS401", "CS404", "Mock Test"], status: "Upcoming" },
+      { day: "Sun", fullDay: "Sunday", hoursPlanned: 2.5, hoursDone: 0.0, subjects: ["CS403", "Weekly Revision"], status: "Upcoming" }
+    ];
+
+    let examPrepData = [
+      {
+        subject: "Data Structures & Algorithms",
+        code: "CS401",
+        examType: "Mid-Term Examination",
+        date: "Oct 14, 2026",
+        daysLeft: 12,
+        targetGrade: "A+ (95%+)",
+        syllabusCovered: 88,
+        priority: "Urgent",
+        highYieldTopics: ["Red-Black Trees", "AVL Rotations", "Binary Heaps", "Graph Traversals"],
+        nextMilestone: "Full-Length Mock Test 1 on Saturday"
+      },
+      {
+        subject: "Database Management Systems",
+        code: "CS403",
+        examType: "Mid-Term Examination",
+        date: "Oct 17, 2026",
+        daysLeft: 15,
+        targetGrade: "A (90%+)",
+        syllabusCovered: 82,
+        priority: "High",
+        highYieldTopics: ["3NF/BCNF Decomposition", "Relational Algebra", "B+ Tree Indexing"],
+        nextMilestone: "Past 3-Year Mid-Sem Paper Review"
+      },
+      {
+        subject: "Operating Systems",
+        code: "CS402",
+        examType: "Mid-Term Examination",
+        date: "Oct 20, 2026",
+        daysLeft: 18,
+        targetGrade: "A (90%+)",
+        syllabusCovered: 78,
+        priority: "High",
+        highYieldTopics: ["Semaphore Mutex IPC", "Banker's Algorithm", "Page Replacement (LRU/FIFO)"],
+        nextMilestone: "Process Sync Code Simulator Lab"
+      },
+      {
+        subject: "Discrete Mathematics",
+        code: "CS404",
+        examType: "Mid-Term Examination",
+        date: "Oct 23, 2026",
+        daysLeft: 21,
+        targetGrade: "A+ (92%+)",
+        syllabusCovered: 90,
+        priority: "Medium",
+        highYieldTopics: ["Pigeonhole Principle", "Generating Functions", "Eulerian & Hamiltonian Paths"],
+        nextMilestone: "Proof Validation Problem Set"
+      }
+    ];
+
+    let revisionTrackingData = [
+      {
+        subjectCode: "CS401",
+        unit: "Unit 1: Asymptotic Complexity & Recurrences",
+        firstRevDate: "Sep 18, 2026",
+        secondRevDate: "Sep 28, 2026",
+        nextDue: "End-Sem Cycle",
+        retentionScore: 95,
+        status: "Mastered"
+      },
+      {
+        subjectCode: "CS401",
+        unit: "Unit 2: Stacks, Queues & Linked Lists",
+        firstRevDate: "Sep 20, 2026",
+        secondRevDate: "Sep 30, 2026",
+        nextDue: "End-Sem Cycle",
+        retentionScore: 92,
+        status: "Mastered"
+      },
+      {
+        subjectCode: "CS401",
+        unit: "Unit 3: Balanced Trees (AVL, 2-3 & Red-Black)",
+        firstRevDate: "Oct 01, 2026",
+        secondRevDate: "Due Oct 05, 2026",
+        nextDue: "In 3 Days",
+        retentionScore: 78,
+        status: "Review Due Soon"
+      },
+      {
+        subjectCode: "CS403",
+        unit: "Unit 2: Relational Schema & 3NF/BCNF Normalization",
+        firstRevDate: "Sep 26, 2026",
+        secondRevDate: "Due Oct 03, 2026",
+        nextDue: "Tomorrow",
+        retentionScore: 80,
+        status: "Review Due Soon"
+      },
+      {
+        subjectCode: "CS402",
+        unit: "Unit 2: Process Scheduling & CPU Algorithms",
+        firstRevDate: "Sep 25, 2026",
+        secondRevDate: "Due Oct 04, 2026",
+        nextDue: "In 2 Days",
+        retentionScore: 84,
+        status: "Review Due Soon"
+      },
+      {
+        subjectCode: "CS404",
+        unit: "Unit 1: Propositional Logic & Truth Proofs",
+        firstRevDate: "Sep 15, 2026",
+        secondRevDate: "Sep 27, 2026",
+        nextDue: "End-Sem Cycle",
+        retentionScore: 96,
+        status: "Mastered"
+      }
+    ];
+
+    let studyGoalsData = [
+      { id: 1, title: "Log 18 hours of deep self-study this week", current: 14.0, target: 18.0, unit: "hrs", completed: false },
+      { id: 2, title: "Solve 15 Tree & Graph algorithmic practice problems", current: 12, target: 15, unit: "problems", completed: false },
+      { id: 3, title: "Complete OS Process Synchronization summary sheet", current: 1, target: 1, unit: "sheet", completed: true },
+      { id: 4, title: "Score 85%+ on DBMS 3NF Mock Assessment", current: 0, target: 1, unit: "test", completed: false },
+      { id: 5, title: "Revise Discrete Math graph coloring theorems", current: 1, target: 1, unit: "unit", completed: true }
+    ];
+
+    let subjectStudyTimeData = [
+      { code: "CS401", name: "Data Structures & Algorithms", hoursSpent: 5.5, hoursPlanned: 6.0, colorClass: "bg-secondary" },
+      { code: "CS403", name: "Database Management Systems", hoursSpent: 3.8, hoursPlanned: 4.5, colorClass: "bg-indigo-600" },
+      { code: "CS402", name: "Operating Systems", hoursSpent: 3.2, hoursPlanned: 4.0, colorClass: "bg-amber-600" },
+      { code: "CS404", name: "Discrete Mathematics", hoursSpent: 2.5, hoursPlanned: 3.0, colorClass: "bg-emerald-600" },
+      { code: "CS405", name: "Web Technologies", hoursSpent: 1.5, hoursPlanned: 2.0, colorClass: "bg-teal-600" }
+    ];
+
+    function renderStudyPlanner() {
+      renderStudySessions();
+      renderWeeklySchedule();
+      renderExamPrep();
+      renderRevisionTracking();
+      renderStudyGoals();
+      renderSubjectStudyTime();
+      updateStudyKPIs();
+    }
+
+    function renderStudySessions() {
+      const container = document.getElementById('sessions-container');
+      if (!container) return;
+      const dayFilter = document.getElementById('session-day-filter')?.value || 'Today';
+      
+      let filtered = studySessionsData;
+      if (dayFilter !== 'all') {
+        filtered = studySessionsData.filter(s => s.day === dayFilter);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full p-8 text-center bg-surface-container-low rounded-2xl border border-dashed border-outline-variant/30 flex flex-col items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-4xl text-on-surface-variant">event_available</span>
+            <span class="font-headline-sm text-sm font-semibold text-on-surface">No study sessions scheduled for ${dayFilter}</span>
+            <p class="text-xs text-on-surface-variant max-w-sm">Click "Add Session" or "Generate Study Plan" to automatically allocate focus blocks.</p>
+            <button onclick="openAddSessionModal()" class="mt-2 px-4 py-1.5 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-all">
+              + Schedule Session
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(session => {
+        const isCompleted = session.status === 'Completed';
+        const isInProgress = session.status === 'In Progress';
+        
+        let statusBadge = "bg-surface-container text-on-surface-variant border-outline-variant/30";
+        if (isCompleted) statusBadge = "bg-emerald-500/10 text-emerald-700 border-emerald-500/20";
+        else if (isInProgress) statusBadge = "bg-amber-500/10 text-amber-700 border-amber-500/20";
+        else statusBadge = "bg-secondary-container/20 text-secondary border-secondary/20";
+
+        return `
+          <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-sm hover:shadow-md transition-all group ${isCompleted ? 'opacity-80 bg-surface-container-low/40' : ''}">
+            
+            <div class="flex flex-col gap-2">
+              <!-- Top Row: Subject & Status -->
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold border ${session.colorBadge || 'bg-surface-container text-on-surface'} truncate">
+                  ${escapeHtml(session.subjectCode || 'STUDY')}: ${escapeHtml(session.subject.split('(')[0].trim())}
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusBadge} shrink-0">
+                  ${session.status}
+                </span>
+              </div>
+
+              <!-- Topic Title -->
+              <h3 class="font-headline-sm text-sm font-bold ${isCompleted ? 'line-through text-on-surface-variant' : 'text-on-surface'} leading-snug">
+                ${escapeHtml(session.topic)}
+              </h3>
+
+              <!-- Time & Duration Details -->
+              <div class="flex items-center gap-2 text-xs text-on-surface-variant flex-wrap mt-0.5">
+                <span class="flex items-center gap-1 font-medium text-on-surface">
+                  <span class="material-symbols-outlined text-[14px] text-secondary">schedule</span>
+                  <span>${session.startTime}</span>
+                </span>
+                <span>•</span>
+                <span class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">timer</span>
+                  <span>${session.duration} mins</span>
+                </span>
+                <span>•</span>
+                <span class="text-[11px] text-secondary font-medium">${session.day}</span>
+              </div>
+
+              <!-- Notes / Target -->
+              ${session.notes ? `
+                <p class="text-xs text-on-surface-variant bg-surface-container-low/60 p-2.5 rounded-xl border border-outline-variant/10 leading-relaxed mt-1">
+                  ${escapeHtml(session.notes)}
+                </p>
+              ` : ''}
+            </div>
+
+            <!-- Card Actions -->
+            <div class="flex items-center justify-between pt-2 border-t border-outline-variant/10 mt-1">
+              <!-- Checkbox Completion Toggle -->
+              <button onclick="toggleSessionDone(${session.id})" class="flex items-center gap-1.5 text-xs font-semibold ${isCompleted ? 'text-emerald-600 hover:text-emerald-700' : 'text-on-surface-variant hover:text-secondary'} transition-colors">
+                <span class="material-symbols-outlined text-base">${isCompleted ? 'check_circle' : 'radio_button_unchecked'}</span>
+                <span>${isCompleted ? 'Completed' : 'Mark Complete'}</span>
+              </button>
+
+              <!-- Secondary Actions: Edit, Delete, AI -->
+              <div class="flex items-center gap-1">
+                <button onclick="openAIModal('Provide a concise study guide and 3 practice questions for topic: ${escapeHtml(session.topic)} in ${escapeHtml(session.subject)}')" class="p-1.5 rounded-lg bg-surface-container hover:bg-secondary hover:text-white transition-colors text-on-surface" title="AI Study Guide">
+                  <span class="material-symbols-outlined text-sm">smart_toy</span>
+                </button>
+                <button onclick="openEditSessionModal(${session.id})" class="p-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface" title="Edit Session">
+                  <span class="material-symbols-outlined text-sm">edit</span>
+                </button>
+                <button onclick="deleteSession(${session.id})" class="p-1.5 rounded-lg bg-surface-container hover:bg-error/10 hover:text-error transition-colors text-on-surface-variant" title="Delete Session">
+                  <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderWeeklySchedule() {
+      const container = document.getElementById('weekly-schedule-grid');
+      if (!container) return;
+
+      container.innerHTML = weeklyScheduleData.map(item => {
+        const isCurrent = item.isCurrent;
+        const pct = Math.min(100, Math.round((item.hoursDone / item.hoursPlanned) * 100));
+
+        return `
+          <div class="p-space-md rounded-2xl ${isCurrent ? 'bg-surface-container-lowest border-2 border-secondary shadow-md ring-4 ring-secondary/5' : 'bg-surface-container-lowest border border-outline-variant/15 shadow-sm'} flex flex-col justify-between gap-space-sm transition-all">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-headline-sm text-xs font-bold ${isCurrent ? 'text-secondary' : 'text-on-surface'}">${item.day}</span>
+                ${item.status === 'Completed' ? `
+                  <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-600 flex items-center justify-center text-[10px] font-bold"><span class="material-symbols-outlined text-xs">done</span></span>
+                ` : isCurrent ? `
+                  <span class="px-1.5 py-0.2 rounded-full bg-secondary/15 text-secondary text-[9px] font-bold">TODAY</span>
+                ` : `
+                  <span class="text-[10px] text-on-surface-variant">Plan</span>
+                `}
+              </div>
+              
+              <div class="mt-2 flex items-baseline gap-1">
+                <span class="font-metric-stat text-lg font-bold text-on-surface">${item.hoursDone > 0 ? item.hoursDone + 'h' : item.hoursPlanned + 'h'}</span>
+                <span class="text-[10px] text-on-surface-variant">/ ${item.hoursPlanned}h</span>
+              </div>
+
+              <!-- Mini progress bar -->
+              <div class="w-full bg-surface-container rounded-full h-1 mt-1.5 overflow-hidden">
+                <div class="${item.status === 'Completed' ? 'bg-emerald-500' : 'bg-secondary'} h-1 rounded-full" style="width: ${pct}%"></div>
+              </div>
+            </div>
+
+            <!-- Subjects list -->
+            <div class="flex flex-wrap gap-1 mt-1">
+              ${item.subjects.map(s => `<span class="px-1.5 py-0.5 rounded bg-surface-container-low text-[10px] font-semibold text-on-surface-variant">${s}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderExamPrep() {
+      const container = document.getElementById('exam-prep-container');
+      if (!container) return;
+
+      container.innerHTML = examPrepData.map(exam => {
+        return `
+          <div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-space-md">
+            
+            <div class="flex flex-col gap-2">
+              <!-- Header: Code, Exam & Countdown -->
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary text-[11px] font-bold">${exam.code}</span>
+                  <h3 class="font-headline-sm text-base font-bold text-on-surface mt-1">${escapeHtml(exam.subject)}</h3>
+                  <span class="text-xs text-on-surface-variant">${exam.examType} • ${exam.date}</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="px-2.5 py-1 rounded-xl bg-error/10 text-error font-label-md text-xs font-bold border border-error/20 inline-block">
+                    ${exam.daysLeft} Days Left
+                  </span>
+                  <span class="block text-[11px] text-on-surface-variant font-medium mt-1">${exam.targetGrade}</span>
+                </div>
+              </div>
+
+              <!-- Syllabus Progress -->
+              <div class="mt-2">
+                <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                  <span class="text-on-surface">Syllabus Coverage</span>
+                  <span class="text-secondary font-bold">${exam.syllabusCovered}%</span>
+                </div>
+                <div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+                  <div class="bg-secondary h-2 rounded-full transition-all duration-500" style="width: ${exam.syllabusCovered}%"></div>
+                </div>
+              </div>
+
+              <!-- High Yield Topics -->
+              <div class="mt-2">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-on-surface-variant">High-Yield Revision Focus:</span>
+                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                  ${exam.highYieldTopics.map(t => `
+                    <span class="px-2 py-1 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface border border-outline-variant/10">
+                      ${t}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Milestone & Action -->
+            <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-1.5 text-xs text-on-surface-variant">
+                <span class="material-symbols-outlined text-sm text-secondary">flag</span>
+                <span>${exam.nextMilestone}</span>
+              </div>
+              <button onclick="scheduleExamSprint('${exam.code}', '${exam.subject}')" class="px-3 py-1.5 rounded-xl bg-surface-container hover:bg-secondary hover:text-white transition-colors text-xs font-semibold text-on-surface">
+                Add Sprint Block
+              </button>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderRevisionTracking() {
+      const container = document.getElementById('revision-tracking-container');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-on-surface">
+            <thead class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/15 font-label-md">
+              <tr>
+                <th class="px-space-md py-3 font-semibold">Subject & Unit</th>
+                <th class="px-space-md py-3 font-semibold">1st Review</th>
+                <th class="px-space-md py-3 font-semibold">2nd Review</th>
+                <th class="px-space-md py-3 font-semibold">Retention Score</th>
+                <th class="px-space-md py-3 font-semibold">Status</th>
+                <th class="px-space-md py-3 font-semibold text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/10">
+              ${revisionTrackingData.map(item => {
+                const isMastered = item.status === 'Mastered';
+                return `
+                  <tr class="hover:bg-surface-container-low/50 transition-colors">
+                    <td class="px-space-md py-3">
+                      <span class="px-1.5 py-0.5 rounded bg-surface-container text-[10px] font-bold text-secondary mr-1.5">${item.subjectCode}</span>
+                      <span class="font-semibold text-on-surface">${escapeHtml(item.unit)}</span>
+                    </td>
+                    <td class="px-space-md py-3 text-on-surface-variant">${item.firstRevDate}</td>
+                    <td class="px-space-md py-3 ${item.secondRevDate.includes('Due') ? 'text-amber-700 font-bold' : 'text-on-surface-variant'}">${item.secondRevDate}</td>
+                    <td class="px-space-md py-3">
+                      <div class="flex items-center gap-2">
+                        <span class="font-bold ${item.retentionScore >= 90 ? 'text-emerald-600' : 'text-amber-600'}">${item.retentionScore}%</span>
+                        <div class="w-16 bg-surface-container rounded-full h-1.5 overflow-hidden">
+                          <div class="${item.retentionScore >= 90 ? 'bg-emerald-500' : 'bg-amber-500'} h-1.5 rounded-full" style="width: ${item.retentionScore}%"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-space-md py-3">
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isMastered ? 'bg-emerald-500/10 text-emerald-700' : 'bg-amber-500/10 text-amber-700'}">
+                        ${item.status}
+                      </span>
+                    </td>
+                    <td class="px-space-md py-3 text-right">
+                      <button onclick="openAIModal('Test my knowledge on ${escapeHtml(item.unit)} in ${item.subjectCode}. Give me 2 conceptual recall questions.')" class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-secondary hover:text-white transition-colors text-[11px] font-semibold text-on-surface">
+                        Quick Quiz
+                      </button>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderStudyGoals() {
+      const container = document.getElementById('study-goals-list');
+      if (!container) return;
+
+      container.innerHTML = studyGoalsData.map(goal => {
+        const isDone = goal.completed || goal.current >= goal.target;
+        const pct = Math.min(100, Math.round((goal.current / goal.target) * 100));
+
+        return `
+          <div class="p-3 rounded-xl ${isDone ? 'bg-surface-container-low/50 opacity-80' : 'bg-surface-container-low'} border border-outline-variant/10 flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleGoalDone(${goal.id})" class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary cursor-pointer"/>
+                <span class="text-xs font-semibold ${isDone ? 'line-through text-on-surface-variant' : 'text-on-surface'}">${escapeHtml(goal.title)}</span>
+              </div>
+              <span class="text-[11px] font-bold text-on-surface-variant shrink-0">${goal.current} / ${goal.target} ${goal.unit}</span>
+            </div>
+            <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+              <div class="${isDone ? 'bg-emerald-500' : 'bg-secondary'} h-1.5 rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSubjectStudyTime() {
+      const container = document.getElementById('subject-study-time-list');
+      if (!container) return;
+
+      container.innerHTML = subjectStudyTimeData.map(sub => {
+        const pct = Math.min(100, Math.round((sub.hoursSpent / sub.hoursPlanned) * 100));
+        return `
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-on-surface">${sub.code}</span>
+                <span class="text-on-surface-variant truncate max-w-[140px] sm:max-w-[180px]">${sub.name}</span>
+              </div>
+              <span class="font-bold text-on-surface">${sub.hoursSpent}h <span class="text-on-surface-variant font-normal">/ ${sub.hoursPlanned}h</span></span>
+            </div>
+            <div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+              <div class="${sub.colorClass || 'bg-secondary'} h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateStudyKPIs() {
+      const todaySessions = studySessionsData.filter(s => s.day === 'Today');
+      const totalTodayMins = todaySessions.reduce((acc, s) => acc + s.duration, 0);
+      const doneTodayMins = todaySessions.filter(s => s.status === 'Completed').reduce((acc, s) => acc + s.duration, 0);
+
+      const elTodayHours = document.getElementById('stat-today-hours');
+      const elTodaySessions = document.getElementById('stat-today-sessions-count');
+      const elTodayDone = document.getElementById('stat-today-done-time');
+      const elTabCountToday = document.getElementById('tab-count-today');
+
+      const plannedHours = Math.floor(totalTodayMins / 60);
+      const plannedMins = totalTodayMins % 60;
+      if (elTodayHours) elTodayHours.textContent = `${plannedHours}h ${plannedMins}m`;
+      if (elTodaySessions) elTodaySessions.textContent = `${todaySessions.length} Sessions`;
+      if (elTodayDone) elTodayDone.textContent = `${doneTodayMins}m done`;
+      if (elTabCountToday) elTabCountToday.textContent = todaySessions.length;
+    }
+
+    function filterSessionsByDay() {
+      renderStudySessions();
+    }
+
+    function toggleSessionDone(id) {
+      const session = studySessionsData.find(s => s.id === id);
+      if (!session) return;
+      if (session.status === 'Completed') {
+        session.status = 'Scheduled';
+        showToast(`Session marked as Scheduled: ${session.topic.substring(0, 24)}...`);
+      } else {
+        session.status = 'Completed';
+        showToast(`🎉 Great job! Completed ${session.duration} mins of ${session.subjectCode}`);
+      }
+      renderStudySessions();
+      updateStudyKPIs();
+    }
+
+    function deleteSession(id) {
+      const idx = studySessionsData.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        const removed = studySessionsData.splice(idx, 1)[0];
+        showToast(`Removed session: ${removed.topic.substring(0, 20)}...`);
+        renderStudySessions();
+        updateStudyKPIs();
+      }
+    }
+
+    function openAddSessionModal() {
+      const form = document.querySelector('#modal-session-editor form');
+      if (form) form.reset();
+      document.getElementById('form-session-id').value = "";
+      document.getElementById('session-modal-title').textContent = "Schedule Study Session";
+      document.getElementById('btn-save-session').textContent = "Save Session";
+      openModal('modal-session-editor');
+    }
+
+    function openEditSessionModal(id) {
+      const session = studySessionsData.find(s => s.id === id);
+      if (!session) return;
+      
+      document.getElementById('form-session-id').value = session.id;
+      document.getElementById('form-session-subject').value = session.subject;
+      document.getElementById('form-session-topic').value = session.topic;
+      document.getElementById('form-session-day').value = session.day;
+      document.getElementById('form-session-time').value = session.startTime;
+      document.getElementById('form-session-duration').value = session.duration;
+      document.getElementById('form-session-status').value = session.status;
+      document.getElementById('form-session-notes').value = session.notes || '';
+      
+      document.getElementById('session-modal-title').textContent = "Edit Study Session";
+      document.getElementById('btn-save-session').textContent = "Update Session";
+      openModal('modal-session-editor');
+    }
+
+    function handleSaveSession(e) {
+      e.preventDefault();
+      const idVal = document.getElementById('form-session-id')?.value;
+      const subject = document.getElementById('form-session-subject')?.value;
+      const topic = document.getElementById('form-session-topic')?.value.trim();
+      const day = document.getElementById('form-session-day')?.value;
+      const startTime = document.getElementById('form-session-time')?.value.trim();
+      const duration = parseInt(document.getElementById('form-session-duration')?.value, 10) || 60;
+      const status = document.getElementById('form-session-status')?.value;
+      const notes = document.getElementById('form-session-notes')?.value.trim();
+
+      if (!topic || !startTime) return;
+
+      const code = subject.includes('CS') ? (subject.match(/CS\d{3}/)?.[0] || 'STUDY') : 'STUDY';
+
+      if (idVal) {
+        // Edit existing
+        const session = studySessionsData.find(s => s.id === parseInt(idVal, 10));
+        if (session) {
+          session.subject = subject;
+          session.subjectCode = code;
+          session.topic = topic;
+          session.day = day;
+          session.startTime = startTime;
+          session.duration = duration;
+          session.status = status;
+          session.notes = notes;
+          showToast(`Updated session: ${topic.substring(0, 24)}...`);
+        }
+      } else {
+        // Create new
+        const newSession = {
+          id: Date.now(),
+          subject: subject,
+          subjectCode: code,
+          topic: topic,
+          day: day,
+          date: "2026-10-02",
+          startTime: startTime,
+          duration: duration,
+          status: status,
+          notes: notes,
+          examLinked: "Semester Coursework",
+          colorBadge: "bg-indigo-500/10 text-indigo-700 border-indigo-500/20"
+        };
+        studySessionsData.unshift(newSession);
+        showToast(`Scheduled new study session: ${topic.substring(0, 24)}...`);
+      }
+
+      closeModal('modal-session-editor');
+      renderStudySessions();
+      updateStudyKPIs();
+    }
+
+    function generateStudyPlan() {
+      const btn = document.getElementById('btn-generate-plan');
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('opacity-70');
+      }
+      showToast("✨ Mentora Twin analyzing CS401 Mid-Sem & syllabus telemetry...");
+
+      setTimeout(() => {
+        const newBlock1 = {
+          id: Date.now(),
+          subject: "Data Structures & Algorithms (CS401)",
+          subjectCode: "CS401",
+          topic: "High-Yield Sprint: Red-Black Tree Balancing & Heaps",
+          day: "Today",
+          date: "2026-10-02",
+          startTime: "05:45 PM",
+          duration: 60,
+          status: "Scheduled",
+          notes: "Calibrated by Digital Twin: high probability in Mid-Sem exam.",
+          examLinked: "Mid-Sem Unit 3",
+          colorBadge: "bg-indigo-500/10 text-indigo-700 border-indigo-500/20"
+        };
+        const newBlock2 = {
+          id: Date.now() + 1,
+          subject: "Database Management Systems (CS403)",
+          subjectCode: "CS403",
+          topic: "High-Yield Sprint: B+ Tree Indexing & Query Cost Calculation",
+          day: "Tomorrow",
+          date: "2026-10-03",
+          startTime: "03:30 PM",
+          duration: 45,
+          status: "Scheduled",
+          notes: "Focus on non-clustered index tree fan-out calculations.",
+          examLinked: "Mid-Sem Unit 3",
+          colorBadge: "bg-amber-500/10 text-amber-800 border-amber-500/20"
+        };
+
+        studySessionsData.unshift(newBlock1);
+        studySessionsData.push(newBlock2);
+
+        // Update weekly velocity
+        const fri = weeklyScheduleData.find(d => d.day === 'Fri');
+        if (fri) fri.hoursPlanned = 4.8;
+        const statWeeklyHours = document.getElementById('stat-weekly-hours');
+        if (statWeeklyHours) statWeeklyHours.textContent = "15.0h";
+        const statWeeklyBar = document.getElementById('stat-weekly-bar');
+        if (statWeeklyBar) statWeeklyBar.style.width = "83%";
+
+        renderStudyPlanner();
+        if (btn) {
+          btn.disabled = false;
+          btn.classList.remove('opacity-70');
+        }
+        showToast("✨ AI Study Plan Generated! 2 prioritized Mid-Sem sessions added.");
+      }, 500);
+    }
+
+    function setPlannerSubtab(tabName) {
+      document.querySelectorAll('.planner-subtab-btn').forEach(b => {
+        b.className = "planner-subtab-btn px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-xs font-semibold transition-all whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById(`planner-tab-${tabName}`);
+      if (activeBtn) {
+        activeBtn.className = "planner-subtab-btn px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-xs font-semibold shadow-sm transition-all whitespace-nowrap";
+      }
+
+      const allSections = document.querySelectorAll('.planner-section');
+      if (tabName === 'overview') {
+        allSections.forEach(s => s.classList.remove('hidden'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast("Showing complete Study Planner overview");
+      } else {
+        const targetId = `planner-sec-${tabName}`;
+        allSections.forEach(s => {
+          if (s.id === targetId) {
+            s.classList.remove('hidden');
+            s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            s.classList.add('hidden');
+          }
+        });
+        showToast(`Filtered to: ${tabName.toUpperCase()}`);
+      }
+    }
+
+    function scheduleExamSprint(code, name) {
+      const sprintSession = {
+        id: Date.now(),
+        subject: name,
+        subjectCode: code,
+        topic: `${code}: High-Priority Exam Sprint Problem Set`,
+        day: "Today",
+        date: "2026-10-02",
+        startTime: "08:15 PM",
+        duration: 45,
+        status: "Scheduled",
+        notes: `Focusing on high-yield exam topics for ${name}.`,
+        examLinked: "Mid-Sem",
+        colorBadge: "bg-error/10 text-error border-error/20"
+      };
+      studySessionsData.unshift(sprintSession);
+      renderStudySessions();
+      updateStudyKPIs();
+      setPlannerSubtab('today');
+      showToast(`Added ${code} Exam Sprint Session!`);
+    }
+
+    function toggleGoalDone(id) {
+      const goal = studyGoalsData.find(g => g.id === id);
+      if (!goal) return;
+      goal.completed = !goal.completed;
+      if (goal.completed) {
+        goal.current = goal.target;
+        showToast(`Goal completed! 🎯 ${goal.title.substring(0, 24)}...`);
+      } else {
+        showToast("Goal reopened");
+      }
+      renderStudyGoals();
+    }
+
+    function promptAddGoal() {
+      openModal('modal-add-goal');
+    }
+
+    function handleSaveGoal(e) {
+      e.preventDefault();
+      const title = document.getElementById('form-goal-title')?.value.trim();
+      const target = parseFloat(document.getElementById('form-goal-target')?.value) || 5;
+      const unit = document.getElementById('form-goal-unit')?.value.trim() || 'hrs';
+
+      if (!title) return;
+
+      const newGoal = {
+        id: Date.now(),
+        title: title,
+        current: 0,
+        target: target,
+        unit: unit,
+        completed: false
+      };
+
+      studyGoalsData.unshift(newGoal);
+      closeModal('modal-add-goal');
+      renderStudyGoals();
+      showToast(`Created study goal: ${title.substring(0, 24)}...`);
+    }
+
     // Digital Twin subtabs switcher
     function setTwinSubtab(btn, tab) {
       document.querySelectorAll('.twin-subtab').forEach(b => {
@@ -2355,6 +3576,8 @@
         switchView('academics');
       } else if (hash === '#tasks-and-assignments' || hash === '#tasks') {
         switchView('tasks-and-assignments');
+      } else if (hash === '#study-planner' || hash === '#planner') {
+        switchView('study-planner');
       } else {
         switchView('dashboard');
       }
@@ -2362,6 +3585,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderTasks();
+      renderStudyPlanner();
       handleRoute();
     });
     window.addEventListener('hashchange', handleRoute);
