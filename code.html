@@ -177,6 +177,404 @@
 
 <body class="bg-surface font-body-md text-on-surface antialiased">
 
+  <!-- ============================================================== -->
+  <!-- 0. SPLIT-SCREEN STUDENT AUTHENTICATION PORTAL                   -->
+  <!-- ============================================================== -->
+  <div id="auth-portal-screen"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10 bg-[#070d18] overflow-y-auto selection:bg-secondary selection:text-white"
+    style="display: none;">
+
+    <!-- Background glowing ambient lights -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#0051d5]/20 blur-3xl"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-[#acedff]/15 blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full bg-[#0f1e36]/50 blur-[130px]"></div>
+    </div>
+
+    <!-- Main Auth Floating Card (Split Screen with Rounded Corners) -->
+    <div
+      class="relative z-10 w-full max-w-4xl bg-[#0c1626] rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] border border-white/10 grid grid-cols-1 md:grid-cols-2 my-auto transition-all duration-300">
+
+      <!-- LEFT PANEL: Dark Login & Signup Form -->
+      <div class="bg-[#0b1322] p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/10 relative">
+        <div>
+          <!-- MENTORA Brand Badge -->
+          <div class="flex items-center gap-2.5 mb-6">
+            <img alt="MENTORA Logo" class="h-7 w-auto object-contain"
+              src="https://lh3.googleusercontent.com/aida/AEtjO1UnwHVGxY5QY-cCEOucUt-DzFdFnFPsVk2rrydN_nKeFS51qf1Jv4be_Ugmn5L6y9CeFeyj4w5V59MHLYfaM24zuIJoNoMpgg-o3qLz3NTp6qOq8YGl_CVVfMqNuSllqQg8pMy-bTRkXfu4LI-a3S6L_FCZIKxaG9ULOhGaZWzGCHaQudg17Fk802o9KpmjWaSXkQWkG0NtMqgGphIzprxitV-fF2Hzrf-Jmj_8Y_9ioosjVxDwnAbR3fMu" />
+            <div class="flex flex-col">
+              <span class="font-bold text-white text-xs tracking-wider uppercase">MENTORA <span class="text-tertiary-fixed font-normal">DIGITAL TWIN OS</span></span>
+              <span class="text-[10px] text-gray-400">Institutional Student Portal</span>
+            </div>
+          </div>
+
+          <!-- Section Heading (Matching Reference Image) -->
+          <h2 id="auth-form-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Login</h2>
+          <p id="auth-form-subtitle" class="text-xs sm:text-sm text-gray-400 mt-1">Enter your account details</p>
+
+          <!-- Error Alert Banner -->
+          <div id="auth-error-alert"
+            class="hidden mt-4 p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2.5 transition-all">
+            <span class="material-symbols-outlined text-base text-rose-400 shrink-0">error</span>
+            <span id="auth-error-text" class="flex-1 font-medium">Authentication error occurred</span>
+          </div>
+
+          <!-- Success Alert Banner -->
+          <div id="auth-success-alert"
+            class="hidden mt-4 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5 transition-all">
+            <span class="material-symbols-outlined text-base text-emerald-400 shrink-0">check_circle</span>
+            <span id="auth-success-text" class="flex-1 font-medium">Account created successfully!</span>
+          </div>
+
+          <!-- 1. LOGIN FORM -->
+          <form id="login-form-element" onsubmit="handleLoginFormSubmit(event)" class="mt-6 flex flex-col gap-4">
+            <!-- Username / Email Field -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-gray-300">Username</label>
+              <div class="relative">
+                <input id="login-username" type="text" required autocomplete="username"
+                  placeholder="Username or campus email"
+                  class="w-full px-4 py-3 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs sm:text-sm focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+              </div>
+            </div>
+
+            <!-- Password Field with Show/Hide Toggle (Eye Icon) -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-gray-300">Password</label>
+              <div class="relative">
+                <input id="login-password" type="password" required autocomplete="current-password"
+                  placeholder="Enter your password"
+                  class="w-full pl-4 pr-11 py-3 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs sm:text-sm focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+                <button id="toggle-login-pwd" type="button" onclick="togglePasswordVisibility('login-password', 'toggle-login-pwd')"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1"
+                  title="Toggle password visibility">
+                  <span class="material-symbols-outlined text-lg">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Forgot Password & Remember Me Row -->
+            <div class="flex items-center justify-between text-xs pt-0.5">
+              <label class="flex items-center gap-2 text-gray-400 cursor-pointer select-none hover:text-gray-300">
+                <input type="checkbox" id="login-remember" checked
+                  class="rounded bg-[#131f33] border-white/20 text-secondary focus:ring-0 focus:ring-offset-0" />
+                <span>Remember me</span>
+              </label>
+              <button type="button" onclick="openModal('modal-forgot-password')"
+                class="text-gray-400 hover:text-tertiary-fixed transition-colors font-medium hover:underline">
+                Forgot Password?
+              </button>
+            </div>
+
+            <!-- Login Primary Action Button -->
+            <button type="submit" id="btn-login-submit"
+              class="w-full mt-2 py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#0051d5] via-[#2167ed] to-[#316bf3] hover:from-[#0046b8] hover:to-[#2257d6] shadow-lg shadow-blue-600/30 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+              <span>Login</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+
+          <!-- 2. SIGN UP FORM -->
+          <form id="signup-form-element" onsubmit="handleSignupFormSubmit(event)" class="mt-5 flex flex-col gap-3.5 hidden">
+            <!-- Full Name -->
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-semibold text-gray-300">Full Name</label>
+              <input id="signup-fullname" type="text" required placeholder="e.g. Aarav Sharma"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+            </div>
+
+            <!-- Student ID / Reg No -->
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-semibold text-gray-300">Registration / Roll No.</label>
+              <input id="signup-regno" type="text" required placeholder="e.g. 25BSA10182 or CS-2024-884"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+            </div>
+
+            <!-- Campus Email / Username -->
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-semibold text-gray-300">Institutional Email or Username</label>
+              <input id="signup-email" type="text" required placeholder="student@campus.mentora.edu"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+            </div>
+
+            <!-- Password -->
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-semibold text-gray-300">Password</label>
+              <div class="relative">
+                <input id="signup-password" type="password" required minlength="6" placeholder="Min. 6 characters"
+                  class="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+                <button id="toggle-signup-pwd" type="button" onclick="togglePasswordVisibility('signup-password', 'toggle-signup-pwd')"
+                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1"
+                  title="Toggle visibility">
+                  <span class="material-symbols-outlined text-base">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-semibold text-gray-300">Confirm Password</label>
+              <div class="relative">
+                <input id="signup-confirm-password" type="password" required minlength="6" placeholder="Re-enter password"
+                  class="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-[#131f33]/90 border border-white/10 text-white placeholder-gray-500 text-xs focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-all" />
+                <button id="toggle-signup-confirm-pwd" type="button" onclick="togglePasswordVisibility('signup-confirm-password', 'toggle-signup-confirm-pwd')"
+                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1"
+                  title="Toggle visibility">
+                  <span class="material-symbols-outlined text-base">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sign Up Button -->
+            <button type="submit" id="btn-signup-submit"
+              class="w-full mt-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#0051d5] via-[#2167ed] to-[#316bf3] hover:from-[#0046b8] hover:to-[#2257d6] shadow-lg shadow-blue-600/30 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+              <span>Create Student Account</span>
+              <span class="material-symbols-outlined text-base">how_to_reg</span>
+            </button>
+          </form>
+
+          <!-- Quick Test Accounts Tooltip -->
+          <div class="mt-4 p-2.5 rounded-xl bg-[#131f33]/60 border border-white/5 text-[11px] text-gray-400 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Test student: <code class="text-white font-mono">nabhya</code> / <code class="text-white font-mono">password123</code></span>
+            </div>
+            <button type="button" onclick="fillDemoCredentials('nabhya')"
+              class="text-xs text-secondary font-semibold hover:text-tertiary-fixed transition-colors underline">
+              Auto-fill
+            </button>
+          </div>
+        </div>
+
+        <!-- BOTTOM SWITCH ROW (Matching Reference: "Don't have an account? Sign up") -->
+        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
+          <div id="auth-switch-to-signup" class="flex items-center justify-between w-full">
+            <span>Don't have an account?</span>
+            <button type="button" onclick="toggleAuthMode('signup')"
+              class="px-4 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white font-semibold transition-all">
+              Sign up
+            </button>
+          </div>
+          <div id="auth-switch-to-login" class="flex items-center justify-between w-full hidden">
+            <span>Already have an account?</span>
+            <button type="button" onclick="toggleAuthMode('login')"
+              class="px-4 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white font-semibold transition-all">
+              Log in
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Welcome Section with Student Illustration (Strictly in website's blue palette) -->
+      <div
+        class="bg-gradient-to-br from-[#0051d5] via-[#1a56db] to-[#0c1e36] p-6 sm:p-8 md:p-10 flex flex-col justify-between text-white relative overflow-hidden select-none">
+
+        <!-- Organic Fluid Background Shapes -->
+        <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute top-1/3 -left-20 w-56 h-56 rounded-full bg-[#acedff]/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-20 right-10 w-72 h-72 rounded-full bg-[#316bf3]/30 blur-2xl pointer-events-none"></div>
+
+        <!-- Top Header & Typography (Matching Reference Layout) -->
+        <div class="relative z-10">
+          <h2 class="text-2xl sm:text-3xl font-semibold text-white/90 leading-tight">Welcome to</h2>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight -mt-0.5 sm:-mt-1">student portal</h1>
+          <p class="text-xs sm:text-sm text-white/80 mt-1.5 font-medium">Login to access your account</p>
+        </div>
+
+        <!-- Student Illustration (Vector Recreation of Reference Composition in Website Theme) -->
+        <div class="relative z-10 my-auto flex items-center justify-center py-2 sm:py-4">
+          <svg viewBox="0 0 500 460" class="w-full max-w-[420px] h-auto drop-shadow-2xl select-none" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Glow Circles -->
+            <circle cx="250" cy="230" r="190" fill="#316bf3" fill-opacity="0.25" />
+            <circle cx="340" cy="140" r="90" fill="#acedff" fill-opacity="0.2" />
+
+            <!-- Potted Plant (Bottom Right) -->
+            <g id="auth-plant" transform="translate(380, 260)">
+              <!-- Large Foliage Leaves -->
+              <path d="M40 80 C20 35 5 0 20 -30 C35 -5 50 40 40 80 Z" fill="#0c1626" />
+              <path d="M40 80 C60 25 85 -10 100 -20 C100 15 75 50 40 80 Z" fill="#1e293b" />
+              <path d="M40 80 C70 50 105 45 115 35 C105 75 70 85 40 80 Z" fill="#0c1626" />
+              <path d="M40 80 C25 60 5 65 -15 50 C-10 80 15 85 40 80 Z" fill="#1e293b" />
+              <!-- Planter Pot -->
+              <path d="M15 80 L65 80 C70 80 75 88 72 98 L60 145 C58 152 52 158 45 158 L35 158 C28 158 22 152 20 145 L8 98 C5 88 10 80 15 80 Z"
+                fill="#070d18" stroke="#000000" stroke-width="2.5" />
+              <ellipse cx="40" cy="80" rx="27" ry="6" fill="#1e293b" />
+            </g>
+
+            <!-- Academic Document / Exam Board (Center) -->
+            <g id="auth-doc-board">
+              <!-- Main White Paper Board -->
+              <rect x="180" y="145" width="220" height="260" rx="14" fill="#ffffff" stroke="#0c1626" stroke-width="4.5" />
+
+              <!-- Header Lines -->
+              <line x1="220" y1="175" x2="330" y2="175" stroke="#0c1626" stroke-width="4" stroke-linecap="round" />
+              <line x1="220" y1="190" x2="270" y2="190" stroke="#0051d5" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Document Rows -->
+              <rect x="205" y="220" width="170" height="13" rx="6.5" fill="#e2e8f0" stroke="#0c1626" stroke-width="2" />
+              <rect x="205" y="246" width="145" height="13" rx="6.5" fill="#e2e8f0" stroke="#0c1626" stroke-width="2" />
+              <rect x="205" y="272" width="170" height="13" rx="6.5" fill="#e2e8f0" stroke="#0c1626" stroke-width="2" />
+              <rect x="205" y="298" width="130" height="13" rx="6.5" fill="#e2e8f0" stroke="#0c1626" stroke-width="2" />
+              <rect x="205" y="324" width="160" height="13" rx="6.5" fill="#e2e8f0" stroke="#0c1626" stroke-width="2" />
+
+              <!-- Fold Detail -->
+              <path d="M375 390 L390 375 L390 390 Z" fill="#cbd5e1" stroke="#0c1626" stroke-width="1.5" />
+            </g>
+
+            <!-- Giant Magnifying Glass Lens -->
+            <g id="auth-magnifier">
+              <circle cx="215" cy="245" r="42" fill="#ffffff" fill-opacity="0.3" stroke="#0c1626" stroke-width="8" />
+              <circle cx="215" cy="245" r="30" stroke="#0051d5" stroke-width="2.5" stroke-dasharray="4 3" />
+              <circle cx="215" cy="245" r="12" fill="#acedff" fill-opacity="0.5" stroke="#0c1626" stroke-width="2" />
+            </g>
+
+            <!-- Student 1 (Sitting on Top with Laptop) -->
+            <g id="auth-sitting-student">
+              <!-- Legs hanging over board -->
+              <path d="M335 150 C345 175 355 195 385 200 C395 202 410 200 415 205 L425 212 C430 216 422 225 410 223 L375 220 C350 215 330 185 320 160 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4" stroke-linejoin="round" />
+              <!-- Shoe -->
+              <path d="M410 215 C418 215 435 218 440 226 C438 238 418 238 405 233 C398 226 402 217 410 215 Z"
+                fill="#070d18" stroke="#0c1626" stroke-width="2" />
+
+              <!-- Torso / White Sweater -->
+              <path d="M295 125 C305 110 330 110 345 120 C355 130 360 150 350 165 C335 170 305 170 295 155 C290 145 290 135 295 125 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4.5" stroke-linejoin="round" />
+
+              <!-- Arms -->
+              <path d="M315 135 C330 145 350 148 370 142 L375 152 C350 162 325 155 310 145 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="3.5" />
+
+              <!-- Laptop Base & Screen -->
+              <path d="M365 140 L400 132 L405 142 L370 150 Z" fill="#0c1626" stroke="#0c1626" stroke-width="2" />
+              <path d="M380 137 L395 105 L415 107 L400 138 Z" fill="#070d18" stroke="#0c1626" stroke-width="3" />
+              <path d="M383 134 L396 109 L410 111 L398 135 Z" fill="#acedff" />
+
+              <!-- Head & Hair -->
+              <circle cx="320" cy="95" r="16" fill="#ffffff" stroke="#0c1626" stroke-width="3.5" />
+              <path d="M308 95 C308 80 325 75 335 85 C340 90 338 100 330 98 C325 90 315 90 308 95 Z" fill="#070d18" />
+              <rect x="316" y="108" width="8" height="12" fill="#ffffff" stroke="#0c1626" stroke-width="3" />
+            </g>
+
+            <!-- Student 2 (Walking in Foreground with Backpack and Phone) -->
+            <g id="auth-walking-student">
+              <!-- Back Leg -->
+              <path d="M225 290 L245 350 L255 385 C255 395 240 405 235 405 C220 405 220 395 225 380 L212 345 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4" stroke-linejoin="round" />
+              <!-- Back shoe -->
+              <path d="M225 385 L255 390 C260 400 248 408 232 408 C220 408 215 398 225 385 Z"
+                fill="#070d18" stroke="#0c1626" stroke-width="2" />
+
+              <!-- Front Leg -->
+              <path d="M205 285 L215 330 L225 385 L210 390 L195 340 L190 295 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4" stroke-linejoin="round" />
+              <!-- Front shoe -->
+              <path d="M205 385 L230 388 C232 398 225 406 205 406 C190 406 185 398 205 385 Z"
+                fill="#070d18" stroke="#0c1626" stroke-width="2" />
+
+              <!-- Torso / White shirt -->
+              <path d="M190 205 C200 200 220 205 225 218 L220 285 C205 292 185 290 180 280 L180 220 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4.5" stroke-linejoin="round" />
+
+              <!-- Backpack Straps -->
+              <path d="M215 220 C228 230 235 255 225 275" stroke="#0c1626" stroke-width="5" stroke-linecap="round" />
+              <path d="M222 225 C235 230 242 245 238 265" fill="#0c1626" />
+
+              <!-- Arm holding phone -->
+              <path d="M192 222 C185 240 175 255 160 260 L155 250 C170 245 178 232 185 220 Z"
+                fill="#ffffff" stroke="#0c1626" stroke-width="4" />
+              <!-- Smartphone -->
+              <rect x="145" y="245" width="14" height="24" rx="3" transform="rotate(-25 145 245)" fill="#070d18" stroke="#0c1626" stroke-width="2" />
+              <rect x="147" y="247" width="10" height="18" rx="2" transform="rotate(-25 147 247)" fill="#acedff" />
+
+              <!-- Head & Hair -->
+              <circle cx="210" cy="175" r="15" fill="#ffffff" stroke="#0c1626" stroke-width="3.5" />
+              <path d="M202 175 C202 178 205 180 208 178" stroke="#0c1626" stroke-width="2" stroke-linecap="round" />
+              <path d="M200 170 C202 155 220 155 226 168 C228 175 222 182 216 180 C214 172 206 172 200 170 Z" fill="#070d18" />
+              <rect x="202" y="188" width="9" height="16" fill="#ffffff" stroke="#0c1626" stroke-width="3" />
+            </g>
+
+            <!-- Ground Baseline -->
+            <line x1="170" y1="406" x2="450" y2="406" stroke="#0c1626" stroke-width="4" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <!-- Bottom Feature Pills -->
+        <div class="relative z-10 flex flex-wrap items-center gap-2 pt-2 border-t border-white/15">
+          <span class="px-2.5 py-1 rounded-full bg-white/10 text-white text-[11px] font-semibold backdrop-blur-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs text-tertiary-fixed">sync</span>
+            <span>Digital Twin AI Sync</span>
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-white/10 text-white text-[11px] font-semibold backdrop-blur-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs text-tertiary-fixed">bar_chart</span>
+            <span>Real-time Academics</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- FORGOT PASSWORD MODAL                                          -->
+  <!-- ============================================================== -->
+  <div id="modal-forgot-password"
+    class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div
+      class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl border border-outline-variant/20 flex flex-col overflow-hidden fade-in">
+      <div
+        class="px-space-lg py-space-md border-b border-outline-variant/15 flex items-center justify-between bg-primary-container text-on-primary">
+        <div class="flex items-center gap-space-sm">
+          <span class="p-1.5 rounded-lg bg-secondary-container text-on-secondary-container">
+            <span class="material-symbols-outlined text-xl">lock_reset</span>
+          </span>
+          <h3 class="font-headline-sm text-base font-bold text-white">Reset Student Password</h3>
+        </div>
+        <button onclick="closeModal('modal-forgot-password')" class="p-1 rounded-lg text-white/80 hover:text-white"
+          title="Close">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="handleForgotPasswordSubmit(event)" class="p-space-lg flex flex-col gap-space-md">
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Enter your registered institutional email or student username. We will verify your campus account and reset your security credentials.
+        </p>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-on-surface">Student Username or Email</label>
+          <input id="forgot-identifier" type="text" required placeholder="e.g. nabhya or aarav@campus.mentora.edu"
+            class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-on-surface">New Password</label>
+          <input id="forgot-new-password" type="password" required minlength="6" placeholder="At least 6 characters"
+            class="w-full px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs focus:ring-2 focus:ring-secondary focus:outline-none" />
+        </div>
+
+        <div id="forgot-pwd-feedback" class="hidden p-2.5 rounded-xl text-xs font-medium"></div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/15">
+          <button type="button" onclick="closeModal('modal-forgot-password')"
+            class="px-4 py-2 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition-colors">
+            Cancel
+          </button>
+          <button type="submit"
+            class="px-5 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-colors shadow-sm">
+            Save New Password
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MAIN APPLICATION SHELL (Protected - Only visible when logged in) -->
+  <!-- ============================================================== -->
+  <div id="app-shell" class="min-h-screen w-full relative">
+
   <!-- SIDEBAR (Existing sidebar items strictly preserved) -->
   <aside
     class="fixed left-0 top-0 h-full w-64 bg-primary-container z-50 flex flex-col py-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] select-none">
@@ -714,6 +1112,15 @@
 
       </nav>
     </div>
+
+    <!-- Sidebar Bottom Sign Out -->
+    <div class="px-space-md pt-space-xs border-t border-outline-variant/10 mt-auto shrink-0">
+      <button onclick="handleLogout()"
+        class="w-full flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-rose-300 hover:text-white hover:bg-rose-500/20 text-xs font-semibold transition-all">
+        <span class="material-symbols-outlined text-lg">logout</span>
+        <span>Sign Out</span>
+      </button>
+    </div>
   </aside>
 
   <!-- MAIN WRAPPER -->
@@ -750,18 +1157,24 @@
         <!-- User Profile Pill -->
         <div class="flex items-center gap-space-sm pl-space-sm cursor-pointer group" onclick="openProfileModal()">
           <div class="flex flex-col text-right hidden sm:flex">
-            <span
+            <span id="header-user-name"
               class="font-label-md text-label-md text-on-surface font-semibold group-hover:text-secondary transition-colors">Nabhya
               Navale</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">B.Tech CSE • 2nd Year</span>
+            <span id="header-user-role" class="font-label-sm text-label-sm text-on-surface-variant">B.Tech CSE • 2nd Year</span>
           </div>
           <div class="relative">
-            <img alt="Nabhya Navale"
+            <img id="header-user-avatar" alt="Student Avatar"
               class="w-8 h-8 rounded-full object-cover ring-2 ring-secondary/20 group-hover:ring-secondary transition-all"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAH7y3yA0ewgjBnF8v_G6mHDXK9YvwCP31NCm45ZDzy8oJtPzmlltBrmaB3QlHsuCf08eXV8QitcDEO-M7wazOH4sVNZRk7BYpOVmsek_RnQBtpimcB0_vJNAR5EAG0-94FThygrv-Z8dHHt1rxSiOjiF8m7w-7aj1g9RUrlS9pXWPyAuxVtm4kQZwxQjirkTjSyPUIJVrqzXYKw-ucpcG89s1B1AE4rCjd0k1e61-CKcYCDUsLEGrbg" />
             <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
           </div>
         </div>
+
+        <!-- Header Logout Button -->
+        <button id="header-logout-btn" onclick="handleLogout()" title="Log out of student session"
+          class="flex items-center justify-center p-2 rounded-full text-on-surface-variant hover:text-rose-600 hover:bg-rose-50 transition-colors ml-1">
+          <span class="material-symbols-outlined text-xl">logout</span>
+        </button>
       </div>
     </header>
 
@@ -4465,19 +4878,24 @@
         </button>
       </div>
       <div class="p-space-lg flex flex-col items-center text-center gap-space-sm">
-        <img class="w-20 h-20 rounded-full object-cover ring-4 ring-secondary/20 shadow-md"
+        <img id="modal-profile-avatar" class="w-20 h-20 rounded-full object-cover ring-4 ring-secondary/20 shadow-md"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAH7y3yA0ewgjBnF8v_G6mHDXK9YvwCP31NCm45ZDzy8oJtPzmlltBrmaB3QlHsuCf08eXV8QitcDEO-M7wazOH4sVNZRk7BYpOVmsek_RnQBtpimcB0_vJNAR5EAG0-94FThygrv-Z8dHHt1rxSiOjiF8m7w-7aj1g9RUrlS9pXWPyAuxVtm4kQZwxQjirkTjSyPUIJVrqzXYKw-ucpcG89s1B1AE4rCjd0k1e61-CKcYCDUsLEGrbg"
-          alt="Nabhya Navale" />
-        <h4 class="font-headline-sm text-lg font-bold text-on-surface">Nabhya Navale</h4>
-        <span class="text-xs text-on-surface-variant">nabhya.navale@campus.mentora.edu</span>
+          alt="Student Avatar" />
+        <h4 id="modal-profile-name" class="font-headline-sm text-lg font-bold text-on-surface">Nabhya Navale</h4>
+        <span id="modal-profile-email" class="text-xs text-on-surface-variant">nabhya.navale@campus.mentora.edu</span>
         <div class="w-full bg-surface-container-low rounded-xl p-space-sm flex justify-around text-xs mt-space-xs">
-          <div><strong class="block text-on-surface">25BSA10182</strong>Reg Number</div>
-          <div><strong class="block text-on-surface">2nd Year (Sem IV)</strong>Active Term</div>
-          <div><strong class="block text-on-surface">8.82</strong>CGPA</div>
+          <div><strong id="modal-profile-regno" class="block text-on-surface">25BSA10182</strong>Reg Number</div>
+          <div><strong id="modal-profile-term" class="block text-on-surface">2nd Year (Sem IV)</strong>Active Term</div>
+          <div><strong id="modal-profile-cgpa" class="block text-on-surface">8.82</strong>CGPA</div>
         </div>
         <button onclick="switchView('digital-twin'); closeModal('modal-profile');"
           class="w-full mt-space-sm py-2 rounded-xl bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-colors">
           Inspect Digital Twin Profile
+        </button>
+        <button onclick="closeModal('modal-profile'); handleLogout();"
+          class="w-full py-2 rounded-xl border border-rose-300 text-rose-600 hover:bg-rose-50 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span>Sign Out / Log Out</span>
         </button>
       </div>
     </div>
@@ -4929,6 +5347,8 @@
     <span class="material-symbols-outlined text-base text-tertiary-fixed">info</span>
     <span id="toast-message">Notification</span>
   </div>
+
+  </div> <!-- END #app-shell -->
 
   <!-- ============================================================== -->
   <!-- CLIENT LOGIC & ROUTING ENGINE                                  -->
@@ -8365,8 +8785,437 @@
       renderCohortLeaderboard();
     }
 
-    // Initialize View on Page Load based on hash
+    // ==============================================================
+    // 8. STUDENT AUTHENTICATION ENGINE & ROUTE PROTECTION           
+    // ==============================================================
+    const DEFAULT_STUDENT_ACCOUNTS = [
+      {
+        username: 'nabhya',
+        email: 'nabhya@campus.mentora.edu',
+        passwordHash: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // SHA-256 of 'password123'
+        rawPasswordForDemo: 'password123',
+        name: 'Nabhya Navale',
+        regNo: '25BSA10182',
+        degree: 'B.Tech CSE • 2nd Year',
+        semester: 'Semester IV (Fall 2026)',
+        cgpa: '8.82',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBAH7y3yA0ewgjBnF8v_G6mHDXK9YvwCP31NCm45ZDzy8oJtPzmlltBrmaB3QlHsuCf08eXV8QitcDEO-M7wazOH4sVNZRk7BYpOVmsek_RnQBtpimcB0_vJNAR5EAG0-94FThygrv-Z8dHHt1rxSiOjiF8m7w-7aj1g9RUrlS9pXWPyAuxVtm4kQZwxQjirkTjSyPUIJVrqzXYKw-ucpcG89s1B1AE4rCjd0k1e61-CKcYCDUsLEGrbg'
+      },
+      {
+        username: 'aarav',
+        email: 'aarav@campus.mentora.edu',
+        passwordHash: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
+        rawPasswordForDemo: 'password123',
+        name: 'Aarav Sharma',
+        regNo: 'CS-2024-884',
+        degree: 'B.Tech CSE • 2nd Year',
+        semester: 'Semester IV (Fall 2026)',
+        cgpa: '9.14',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'
+      }
+    ];
+
+    async function hashStringSHA256(text) {
+      if (window.crypto && window.crypto.subtle) {
+        try {
+          const encoder = new TextEncoder();
+          const data = encoder.encode(text);
+          const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+          return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch (err) {
+          console.warn("Crypto subtle fallback", err);
+        }
+      }
+      // Deterministic fallback
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i);
+        hash |= 0;
+      }
+      return 'hash_' + Math.abs(hash).toString(16);
+    }
+
+    const mentoraAuth = {
+      ACCOUNTS_KEY: 'mentora_student_accounts',
+      SESSION_KEY: 'mentora_current_user',
+
+      getAccounts() {
+        try {
+          const raw = localStorage.getItem(this.ACCOUNTS_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch (e) {
+          console.error("Error reading accounts store", e);
+        }
+        localStorage.setItem(this.ACCOUNTS_KEY, JSON.stringify(DEFAULT_STUDENT_ACCOUNTS));
+        return DEFAULT_STUDENT_ACCOUNTS;
+      },
+
+      saveAccounts(accounts) {
+        localStorage.setItem(this.ACCOUNTS_KEY, JSON.stringify(accounts));
+      },
+
+      getCurrentUser() {
+        try {
+          const raw = localStorage.getItem(this.SESSION_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) {
+          console.error("Error reading current user session", e);
+        }
+        return null;
+      },
+
+      setCurrentUser(user) {
+        localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
+      },
+
+      clearCurrentUser() {
+        localStorage.removeItem(this.SESSION_KEY);
+      },
+
+      async login(identifier, password) {
+        const idClean = (identifier || '').trim().toLowerCase();
+        if (!idClean || !password) {
+          return { success: false, message: 'Please enter both username and password.' };
+        }
+
+        const accounts = this.getAccounts();
+        const user = accounts.find(a => 
+          (a.username && a.username.toLowerCase() === idClean) || 
+          (a.email && a.email.toLowerCase() === idClean)
+        );
+
+        if (!user) {
+          return { success: false, message: 'No student account found for this username or email.' };
+        }
+
+        const hashedInput = await hashStringSHA256(password);
+        const isMatch = (user.passwordHash && user.passwordHash === hashedInput) || 
+                        (user.rawPasswordForDemo && user.rawPasswordForDemo === password);
+
+        if (!isMatch) {
+          return { success: false, message: 'Invalid password. Please verify your credentials and try again.' };
+        }
+
+        this.setCurrentUser(user);
+        return { success: true, user };
+      },
+
+      async signup(fullName, regNo, emailOrUsername, password) {
+        const cleanName = (fullName || '').trim();
+        const cleanReg = (regNo || '').trim().toUpperCase();
+        const cleanInput = (emailOrUsername || '').trim().toLowerCase();
+
+        if (!cleanName || !cleanReg || !cleanInput || !password) {
+          return { success: false, message: 'All registration fields are required.' };
+        }
+
+        if (password.length < 6) {
+          return { success: false, message: 'Password must be at least 6 characters long.' };
+        }
+
+        const accounts = this.getAccounts();
+        const isEmail = cleanInput.includes('@');
+        const username = isEmail ? cleanInput.split('@')[0] : cleanInput;
+        const email = isEmail ? cleanInput : `${cleanInput}@campus.mentora.edu`;
+
+        const exists = accounts.find(a => 
+          a.username.toLowerCase() === username || 
+          a.email.toLowerCase() === email || 
+          (a.regNo && a.regNo.toLowerCase() === cleanReg.toLowerCase())
+        );
+
+        if (exists) {
+          return { success: false, message: 'A student account with this username, email or Reg No already exists.' };
+        }
+
+        const passwordHash = await hashStringSHA256(password);
+        const newUser = {
+          username: username,
+          email: email,
+          passwordHash: passwordHash,
+          rawPasswordForDemo: password,
+          name: cleanName,
+          regNo: cleanReg,
+          degree: 'B.Tech CSE • 2nd Year',
+          semester: 'Semester IV (Fall 2026)',
+          cgpa: '8.50',
+          avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=256&q=80'
+        };
+
+        accounts.push(newUser);
+        this.saveAccounts(accounts);
+        this.setCurrentUser(newUser);
+        return { success: true, user: newUser };
+      },
+
+      async resetPassword(identifier, newPassword) {
+        const idClean = (identifier || '').trim().toLowerCase();
+        if (!idClean || !newPassword) {
+          return { success: false, message: 'Identifier and new password required.' };
+        }
+        if (newPassword.length < 6) {
+          return { success: false, message: 'New password must be at least 6 characters.' };
+        }
+
+        const accounts = this.getAccounts();
+        const user = accounts.find(a => 
+          (a.username && a.username.toLowerCase() === idClean) || 
+          (a.email && a.email.toLowerCase() === idClean)
+        );
+
+        if (!user) {
+          return { success: false, message: 'No student record found with that email or username.' };
+        }
+
+        const hash = await hashStringSHA256(newPassword);
+        user.passwordHash = hash;
+        user.rawPasswordForDemo = newPassword;
+        this.saveAccounts(accounts);
+        return { success: true, user };
+      }
+    };
+
+    // Password Visibility Toggle
+    function togglePasswordVisibility(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      const btn = document.getElementById(btnId);
+      if (!input || !btn) return;
+
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.textContent = isPassword ? 'visibility_off' : 'visibility';
+      }
+    }
+
+    // Toggle between Login and Signup modes
+    function toggleAuthMode(mode) {
+      const loginForm = document.getElementById('login-form-element');
+      const signupForm = document.getElementById('signup-form-element');
+      const title = document.getElementById('auth-form-title');
+      const subtitle = document.getElementById('auth-form-subtitle');
+      const switchToSignup = document.getElementById('auth-switch-to-signup');
+      const switchToLogin = document.getElementById('auth-switch-to-login');
+      const errAlert = document.getElementById('auth-error-alert');
+      const succAlert = document.getElementById('auth-success-alert');
+
+      if (errAlert) errAlert.classList.add('hidden');
+      if (succAlert) succAlert.classList.add('hidden');
+
+      if (mode === 'signup') {
+        if (loginForm) loginForm.classList.add('hidden');
+        if (signupForm) signupForm.classList.remove('hidden');
+        if (title) title.textContent = 'Sign Up';
+        if (subtitle) subtitle.textContent = 'Create your student account with institutional credentials';
+        if (switchToSignup) switchToSignup.classList.add('hidden');
+        if (switchToLogin) switchToLogin.classList.remove('hidden');
+      } else {
+        if (signupForm) signupForm.classList.add('hidden');
+        if (loginForm) loginForm.classList.remove('hidden');
+        if (title) title.textContent = 'Login';
+        if (subtitle) subtitle.textContent = 'Enter your account details';
+        if (switchToLogin) switchToLogin.classList.add('hidden');
+        if (switchToSignup) switchToSignup.classList.remove('hidden');
+      }
+    }
+
+    // Auto-fill test student credentials
+    function fillDemoCredentials(username = 'nabhya') {
+      const uField = document.getElementById('login-username');
+      const pField = document.getElementById('login-password');
+      if (uField) uField.value = username;
+      if (pField) pField.value = 'password123';
+      showToast(`Demo student credentials populated: ${username}`);
+    }
+
+    // Update Profile Information Across Header & Modals
+    function updateStudentProfileUI(user) {
+      if (!user) return;
+
+      const nameEl = document.getElementById('header-user-name');
+      const roleEl = document.getElementById('header-user-role');
+      const avatarEl = document.getElementById('header-user-avatar');
+
+      if (nameEl) nameEl.textContent = user.name;
+      if (roleEl) roleEl.textContent = user.degree;
+      if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+
+      // Profile Modal updates
+      const mAvatar = document.getElementById('modal-profile-avatar');
+      const mName = document.getElementById('modal-profile-name');
+      const mEmail = document.getElementById('modal-profile-email');
+      const mReg = document.getElementById('modal-profile-regno');
+      const mTerm = document.getElementById('modal-profile-term');
+      const mCgpa = document.getElementById('modal-profile-cgpa');
+
+      if (mAvatar && user.avatar) mAvatar.src = user.avatar;
+      if (mName) mName.textContent = user.name;
+      if (mEmail) mEmail.textContent = user.email;
+      if (mReg) mReg.textContent = user.regNo;
+      if (mTerm) mTerm.textContent = user.semester || '2nd Year (Sem IV)';
+      if (mCgpa) mCgpa.textContent = user.cgpa || '8.82';
+    }
+
+    // Render Auth State: Shows or hides the entire app shell and route protection
+    function renderAuthState() {
+      const currentUser = mentoraAuth.getCurrentUser();
+      const authScreen = document.getElementById('auth-portal-screen');
+      const appShell = document.getElementById('app-shell');
+
+      if (!currentUser) {
+        // Not logged in: Show split-screen auth modal, hide dashboard
+        if (authScreen) authScreen.style.display = 'flex';
+        if (appShell) appShell.style.display = 'none';
+        return false;
+      } else {
+        // Logged in: Hide auth modal, reveal dashboard shell, personalize UI
+        if (authScreen) authScreen.style.display = 'none';
+        if (appShell) appShell.style.display = 'block';
+        updateStudentProfileUI(currentUser);
+        return true;
+      }
+    }
+
+    // Handle Login Form Submit
+    async function handleLoginFormSubmit(e) {
+      e.preventDefault();
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const errAlert = document.getElementById('auth-error-alert');
+      const errText = document.getElementById('auth-error-text');
+      const submitBtn = document.getElementById('btn-login-submit');
+
+      if (!usernameInput || !passwordInput) return;
+
+      const originalBtnHTML = submitBtn ? submitBtn.innerHTML : 'Login';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span>Authenticating...</span>
+        `;
+      }
+
+      if (errAlert) errAlert.classList.add('hidden');
+
+      const result = await mentoraAuth.login(usernameInput.value, passwordInput.value);
+
+      if (result.success) {
+        showToast(`Welcome back, ${result.user.name.split(' ')[0]}! 🎓`);
+        renderAuthState();
+        initAllSemesters();
+        handleRoute();
+      } else {
+        if (errText) errText.textContent = result.message;
+        if (errAlert) errAlert.classList.remove('hidden');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        }
+      }
+    }
+
+    // Handle Sign Up Form Submit
+    async function handleSignupFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-fullname')?.value;
+      const reg = document.getElementById('signup-regno')?.value;
+      const email = document.getElementById('signup-email')?.value;
+      const pwd = document.getElementById('signup-password')?.value;
+      const confirmPwd = document.getElementById('signup-confirm-password')?.value;
+      const errAlert = document.getElementById('auth-error-alert');
+      const errText = document.getElementById('auth-error-text');
+      const submitBtn = document.getElementById('btn-signup-submit');
+
+      if (errAlert) errAlert.classList.add('hidden');
+
+      if (pwd !== confirmPwd) {
+        if (errText) errText.textContent = 'Passwords do not match. Please re-enter identical passwords.';
+        if (errAlert) errAlert.classList.remove('hidden');
+        return;
+      }
+
+      const originalBtnHTML = submitBtn ? submitBtn.innerHTML : 'Create Account';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span>Registering Student...</span>
+        `;
+      }
+
+      const result = await mentoraAuth.signup(name, reg, email, pwd);
+
+      if (result.success) {
+        showToast(`Account successfully created for ${result.user.name}! 🎉`);
+        renderAuthState();
+        initAllSemesters();
+        handleRoute();
+      } else {
+        if (errText) errText.textContent = result.message;
+        if (errAlert) errAlert.classList.remove('hidden');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        }
+      }
+    }
+
+    // Handle Forgot Password Form Submit
+    async function handleForgotPasswordSubmit(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('forgot-identifier')?.value;
+      const newPwd = document.getElementById('forgot-new-password')?.value;
+      const feedback = document.getElementById('forgot-pwd-feedback');
+
+      if (!identifier || !newPwd) return;
+
+      const res = await mentoraAuth.resetPassword(identifier, newPwd);
+
+      if (res.success) {
+        if (feedback) {
+          feedback.className = "p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 text-xs font-semibold";
+          feedback.textContent = `Password reset successfully for ${res.user.name}! You can now log in with your new password.`;
+          feedback.classList.remove('hidden');
+        }
+        showToast("Password updated! Please log in.");
+        setTimeout(() => {
+          closeModal('modal-forgot-password');
+          toggleAuthMode('login');
+          const loginU = document.getElementById('login-username');
+          const loginP = document.getElementById('login-password');
+          if (loginU) loginU.value = res.user.username;
+          if (loginP) loginP.value = newPwd;
+        }, 1500);
+      } else {
+        if (feedback) {
+          feedback.className = "p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-700 text-xs font-semibold";
+          feedback.textContent = res.message;
+          feedback.classList.remove('hidden');
+        }
+      }
+    }
+
+    // Handle Student Logout
+    function handleLogout() {
+      mentoraAuth.clearCurrentUser();
+      showToast("Signed out successfully. See you soon! 👋");
+      renderAuthState();
+      window.location.hash = '';
+    }
+
+    // Initialize View on Page Load based on hash (Route Protected)
     function handleRoute() {
+      // Route Guard
+      if (!renderAuthState()) {
+        return;
+      }
+
       const hash = window.location.hash.replace(/^#/, '');
       if (!hash) {
         switchSuboption('dashboard', 'attendance');
@@ -8414,12 +9263,25 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      renderTasks();
-      renderStudyPlanner();
-      initAllSemesters();
-      handleRoute();
+      // Seed default student accounts if first visit
+      mentoraAuth.getAccounts();
+
+      // Render authentication gate
+      const isAuthenticated = renderAuthState();
+
+      if (isAuthenticated) {
+        renderTasks();
+        renderStudyPlanner();
+        initAllSemesters();
+        handleRoute();
+      }
     });
-    window.addEventListener('hashchange', handleRoute);
+
+    window.addEventListener('hashchange', () => {
+      if (renderAuthState()) {
+        handleRoute();
+      }
+    });
   </script>
 </body>
 
