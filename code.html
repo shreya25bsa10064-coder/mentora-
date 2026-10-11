@@ -3376,15 +3376,19 @@
       <!-- ============================================================== -->
       <section id="view-performance" class="flex flex-col w-full pb-space-2xl gap-gutter-lg hidden fade-in">
         <!-- Dashboard Top Header Bar (Matching Reference Dashboard) -->
-        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/20 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+        <div
+          class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/20 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
           <div class="flex items-start sm:items-center gap-space-md">
             <div class="p-3 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 shrink-0 shadow-sm">
               <span class="material-symbols-outlined text-3xl">insights</span>
             </div>
             <div class="flex flex-col gap-0.5">
               <div class="flex items-center gap-space-sm flex-wrap">
-                <h1 class="font-headline-lg text-lg sm:text-xl font-bold text-on-surface tracking-tight">Student Performance Dashboard</h1>
-                <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-label-sm text-xs font-semibold border border-blue-200">CGPA 8.82 / 10.0</span>
+                <h1 class="font-headline-lg text-lg sm:text-xl font-bold text-on-surface tracking-tight">Student
+                  Performance Dashboard</h1>
+                <span
+                  class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-label-sm text-xs font-semibold border border-blue-200">CGPA
+                  8.82 / 10.0</span>
               </div>
               <p class="font-body-md text-xs text-on-surface-variant">
                 Performative grade analysis, subject distributions, attendance metrics, and multi-semester evaluation.
@@ -3393,17 +3397,22 @@
           </div>
           <div class="flex items-center gap-2.5 text-xs text-on-surface-variant self-start md:self-center">
             <span class="text-[11px] text-slate-400 font-medium">Data refreshed at Oct 10, 2026 04:30 PM</span>
-            <button onclick="refreshPerfDashboard()" class="p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface border border-outline-variant/20" title="Refresh Dashboard">
+            <button onclick="refreshPerfDashboard()"
+              class="p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface border border-outline-variant/20"
+              title="Refresh Dashboard">
               <span id="btn-refresh-perf-icon" class="material-symbols-outlined text-sm">refresh</span>
             </button>
-            <button onclick="showToast('Performance dashboard report snapshot saved')" class="p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface border border-outline-variant/20" title="More Options">
+            <button onclick="showToast('Performance dashboard report snapshot saved')"
+              class="p-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface border border-outline-variant/20"
+              title="More Options">
               <span class="material-symbols-outlined text-sm">more_vert</span>
             </button>
           </div>
         </div>
 
         <!-- Performance Analytics Sub-Navigation Tabs Strip -->
-        <div class="flex items-center gap-2 overflow-x-auto bg-surface-container-lowest p-2 rounded-2xl border border-outline-variant/15 shadow-sm">
+        <div
+          class="flex items-center gap-2 overflow-x-auto bg-surface-container-lowest p-2 rounded-2xl border border-outline-variant/15 shadow-sm">
           <button onclick="switchSuboption('performance-analytics', 'cgpa', event)" id="perfa-tab-btn-cgpa"
             class="perfa-main-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-secondary text-on-secondary shadow-sm">
             <span class="material-symbols-outlined text-sm">trending_up</span>
@@ -3422,23 +3431,27 @@
         </div>
 
         <div id="perf-sec-cgpa" class="perf-section flex flex-col gap-space-md fade-in">
-          
+
           <!-- TOP ROW: FILTERS, STUDENT AVATAR CARD, AVG SUBJECT SCORE STRIP -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
-            
+
             <!-- 1. Filters Card (3 Cols) -->
-            <div class="lg:col-span-3 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-2.5">
+            <div
+              class="lg:col-span-3 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between gap-2.5">
               <div>
                 <label for="perf-select-year" class="text-xs font-bold text-on-surface block mb-1">Select Year</label>
-                <select id="perf-select-year" onchange="onPerfDashboardFilterChange()" class="w-full px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-semibold text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
+                <select id="perf-select-year" onchange="onPerfDashboardFilterChange()"
+                  class="w-full px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-semibold text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
                   <option value="all">All</option>
                   <option value="1">1st Year (Sem 1 &amp; 2)</option>
                   <option value="2" selected>2nd Year (Sem 3 &amp; 4)</option>
                 </select>
               </div>
               <div>
-                <label for="perf-select-semester" class="text-xs font-bold text-on-surface block mb-1">Select Grade / Semester</label>
-                <select id="perf-select-semester" onchange="onPerfDashboardFilterChange()" class="w-full px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-semibold text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
+                <label for="perf-select-semester" class="text-xs font-bold text-on-surface block mb-1">Select Grade /
+                  Semester</label>
+                <select id="perf-select-semester" onchange="onPerfDashboardFilterChange()"
+                  class="w-full px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs font-semibold text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary">
                   <option value="all">All Semesters</option>
                   <option value="sem1">Semester 1 (1st Year)</option>
                   <option value="sem2">Semester 2 (1st Year)</option>
@@ -3449,25 +3462,31 @@
             </div>
 
             <!-- 2. Student Avatar & ID Card (3 Cols) -->
-            <div class="lg:col-span-3 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex items-center gap-space-md">
-              <div class="w-14 h-14 rounded-full bg-blue-50 border-2 border-blue-200 shadow-sm flex items-center justify-center text-blue-600 shrink-0">
+            <div
+              class="lg:col-span-3 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex items-center gap-space-md">
+              <div
+                class="w-14 h-14 rounded-full bg-blue-50 border-2 border-blue-200 shadow-sm flex items-center justify-center text-blue-600 shrink-0">
                 <span class="material-symbols-outlined text-3xl">school</span>
               </div>
               <div class="flex flex-col">
                 <span class="text-[10px] text-on-surface-variant font-semibold uppercase tracking-wider">Students</span>
-                <span class="text-xl font-extrabold text-on-surface tracking-tight">300 <span class="text-[11px] font-normal text-on-surface-variant">(CSE Cohort)</span></span>
+                <span class="text-xl font-extrabold text-on-surface tracking-tight">300 <span
+                    class="text-[11px] font-normal text-on-surface-variant">(CSE Cohort)</span></span>
                 <span class="text-xs font-bold text-on-surface mt-0.5">Nabhya Navale</span>
                 <span class="text-[11px] text-secondary font-semibold">25BSA10182 • 2nd Year</span>
               </div>
             </div>
 
             <!-- 3. Avg. Subject Score Strip (6 Cols) -->
-            <div class="lg:col-span-6 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="lg:col-span-6 bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="border-b border-outline-variant/15 pb-1 mb-2 flex items-center justify-between">
                 <h3 class="text-xs font-bold text-on-surface">Avg. Subject Score</h3>
-                <span id="perf-avg-score-term-badge" class="text-[11px] text-on-surface-variant font-medium">Semester 4 (Active Term)</span>
+                <span id="perf-avg-score-term-badge" class="text-[11px] text-on-surface-variant font-medium">Semester 4
+                  (Active Term)</span>
               </div>
-              <div id="perf-avg-subject-scores-row" class="grid grid-cols-5 divide-x divide-outline-variant/15 text-center">
+              <div id="perf-avg-subject-scores-row"
+                class="grid grid-cols-5 divide-x divide-outline-variant/15 text-center">
                 <!-- Dynamically populated by JS -->
               </div>
             </div>
@@ -3475,22 +3494,29 @@
           </div>
 
           <!-- MIDDLE ROW: ACADEMIC DETAILS OF STUDENTS TABLE -->
-          <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/15 pb-space-sm">
+          <div
+            class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/15 pb-space-sm">
               <div>
-                <h2 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Academic Details of Students</h2>
-                <p class="text-xs text-on-surface-variant">Course scores, grade points, participation ratings, and attendance records</p>
+                <h2 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Academic Details of Students
+                </h2>
+                <p class="text-xs text-on-surface-variant">Course scores, grade points, participation ratings, and
+                  attendance records</p>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-xs text-on-surface-variant font-medium">Active Term:</span>
-                <span id="perf-table-status-pill" class="px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Semester 4</span>
+                <span id="perf-table-status-pill"
+                  class="px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">Semester
+                  4</span>
               </div>
             </div>
-            
+
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr class="bg-surface-container-low/70 text-on-surface-variant text-[11px] uppercase tracking-wider font-bold border-b border-outline-variant/20">
+                  <tr
+                    class="bg-surface-container-low/70 text-on-surface-variant text-[11px] uppercase tracking-wider font-bold border-b border-outline-variant/20">
                     <th class="py-2.5 px-3">Student ID</th>
                     <th class="py-2.5 px-3">Student Name <span class="text-[10px]">▲</span></th>
                     <th class="py-2.5 px-3">Subject / Course</th>
@@ -3511,12 +3537,14 @@
 
           <!-- BOTTOM ROW: 3 GRAPHICAL VISUALIZATIONS -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
-            
+
             <!-- Graph 1: Students by Grade and Gender (Vertical Bar Chart) -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="mb-2">
                 <h3 class="font-headline-sm text-sm font-bold text-on-surface">Students by Grade and Gender</h3>
-                <p class="text-[11px] text-on-surface-variant">Drill down to show the marks received across subjects.</p>
+                <p class="text-[11px] text-on-surface-variant">Drill down to show the marks received across subjects.
+                </p>
               </div>
               <div id="chart-vertical-bars-container" class="w-full flex items-center justify-center min-h-[220px]">
                 <!-- Dynamic SVG Bar Chart -->
@@ -3524,10 +3552,12 @@
             </div>
 
             <!-- Graph 2: Student Participation Rate by Branch (Horizontal Bar Chart) -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="mb-2">
                 <h3 class="font-headline-sm text-sm font-bold text-on-surface">Student Participation Rate by Branch</h3>
-                <p class="text-[11px] text-on-surface-variant">Subject-wise classroom attendance and engagement rate.</p>
+                <p class="text-[11px] text-on-surface-variant">Subject-wise classroom attendance and engagement rate.
+                </p>
               </div>
               <div id="chart-horizontal-bars-container" class="w-full flex items-center justify-center min-h-[220px]">
                 <!-- Dynamic SVG Horizontal Bar Chart -->
@@ -3535,13 +3565,17 @@
             </div>
 
             <!-- Graph 3: Examination Results by Branch (Stacked Bar Chart) -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="mb-1">
                 <h3 class="font-headline-sm text-sm font-bold text-on-surface">Examination Results by Branch</h3>
                 <div class="flex items-center justify-end gap-3 text-[11px] text-on-surface-variant mt-1">
-                  <span class="flex items-center gap-1 font-semibold text-emerald-600"><span class="w-2.5 h-2.5 rounded-sm bg-[#22c55e]"></span> Pass</span>
-                  <span class="flex items-center gap-1 font-semibold text-red-500"><span class="w-2.5 h-2.5 rounded-sm bg-[#ef4444]"></span> Internals</span>
-                  <span class="flex items-center gap-1 font-semibold text-amber-500"><span class="w-2.5 h-2.5 rounded-sm bg-[#f59e0b]"></span> Lab / Eval</span>
+                  <span class="flex items-center gap-1 font-semibold text-emerald-600"><span
+                      class="w-2.5 h-2.5 rounded-sm bg-[#22c55e]"></span> Pass</span>
+                  <span class="flex items-center gap-1 font-semibold text-red-500"><span
+                      class="w-2.5 h-2.5 rounded-sm bg-[#ef4444]"></span> Internals</span>
+                  <span class="flex items-center gap-1 font-semibold text-amber-500"><span
+                      class="w-2.5 h-2.5 rounded-sm bg-[#f59e0b]"></span> Lab / Eval</span>
                 </div>
               </div>
               <div id="chart-stacked-bars-container" class="w-full flex items-center justify-center min-h-[220px]">
@@ -3552,33 +3586,40 @@
           </div>
 
           <!-- SEMESTER SGPA & CGPA PROGRESSION CARDS -->
-          <div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md mt-1">
+          <div
+            class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md mt-1">
             <div class="flex items-center justify-between">
               <div>
                 <h2 class="font-headline-sm font-bold text-on-surface">Semester SGPA &amp; CGPA Progression</h2>
-                <p class="text-xs text-on-surface-variant">Continuous upward performance trajectory across 1st and 2nd Year • Nabhya Navale</p>
+                <p class="text-xs text-on-surface-variant">Continuous upward performance trajectory across 1st and 2nd
+                  Year • Nabhya Navale</p>
               </div>
-              <span class="px-2.5 py-1 rounded-full bg-secondary-container/15 text-secondary text-xs font-bold">CGPA: 8.82</span>
+              <span class="px-2.5 py-1 rounded-full bg-secondary-container/15 text-secondary text-xs font-bold">CGPA:
+                8.82</span>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
               <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-1 border border-outline-variant/10">
                 <span class="text-[11px] text-on-surface-variant font-semibold">Semester 1 (1st Year)</span>
-                <span class="text-2xl font-extrabold text-on-surface">8.52 <span class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
+                <span class="text-2xl font-extrabold text-on-surface">8.52 <span
+                    class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
                 <span class="text-xs text-on-surface-variant">21.0 Credits • CGPA: 8.52</span>
               </div>
               <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-1 border border-outline-variant/10">
                 <span class="text-[11px] text-on-surface-variant font-semibold">Semester 2 (1st Year)</span>
-                <span class="text-2xl font-extrabold text-on-surface">8.74 <span class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
+                <span class="text-2xl font-extrabold text-on-surface">8.74 <span
+                    class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
                 <span class="text-xs text-emerald-600 font-semibold">+0.22 • CGPA: 8.63</span>
               </div>
               <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-1 border border-outline-variant/10">
                 <span class="text-[11px] text-on-surface-variant font-semibold">Semester 3 (2nd Year)</span>
-                <span class="text-2xl font-extrabold text-on-surface">8.95 <span class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
+                <span class="text-2xl font-extrabold text-on-surface">8.95 <span
+                    class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
                 <span class="text-xs text-emerald-600 font-semibold">+0.21 • CGPA: 8.74</span>
               </div>
               <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-1 border-2 border-secondary/40">
                 <span class="text-[11px] text-secondary font-bold">Sem 4 (2nd Year Proj)</span>
-                <span class="text-2xl font-extrabold text-secondary">9.05 <span class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
+                <span class="text-2xl font-extrabold text-secondary">9.05 <span
+                    class="text-xs font-normal text-on-surface-variant">SGPA</span></span>
                 <span class="text-xs text-emerald-600 font-semibold">+0.10 • CGPA: 8.82</span>
               </div>
             </div>
@@ -3620,39 +3661,56 @@
         <!-- SUB-SECTION 3: COHORT BENCHMARK & COMPARATIVE ANALYSIS          -->
         <!-- ============================================================== -->
         <div id="perf-sec-cohort" class="perf-section flex flex-col gap-space-md hidden fade-in">
-          
+
           <!-- TOP HEADER BANNER & SEMESTER SELECTOR -->
-          <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+          <div
+            class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
             <div class="flex items-start sm:items-center gap-space-md">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm">
+              <div
+                class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm">
                 <span class="material-symbols-outlined text-3xl">pie_chart</span>
               </div>
               <div class="flex flex-col gap-0.5">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <h2 class="font-headline-sm text-base sm:text-lg font-bold text-on-surface">Cohort Benchmark &amp; Comparative Analysis</h2>
-                  <span id="cohort-standing-pill" class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-xs font-bold">Top 4.3% Standing</span>
+                  <h2 class="font-headline-sm text-base sm:text-lg font-bold text-on-surface">Cohort Benchmark &amp;
+                    Comparative Analysis</h2>
+                  <span id="cohort-standing-pill"
+                    class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 text-xs font-bold">Top
+                    4.3% Standing</span>
                 </div>
                 <p class="text-xs text-on-surface-variant">
-                  B.Tech Computer Science &amp; Engineering (Class of 2028) • 160 Active Students / 300 Enrolled Peers • Nabhya Navale
+                  B.Tech Computer Science &amp; Engineering (Class of 2028) • 160 Active Students / 300 Enrolled Peers •
+                  Nabhya Navale
                 </p>
               </div>
             </div>
 
             <!-- Semester Filter Tab Buttons -->
-            <div class="flex items-center gap-1.5 overflow-x-auto self-start lg:self-center bg-surface-container-low p-1 rounded-xl border border-outline-variant/15">
-              <button onclick="switchCohortSemester('sem1')" id="btn-cohort-sem1" class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem 1</button>
-              <button onclick="switchCohortSemester('sem2')" id="btn-cohort-sem2" class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem 2</button>
-              <button onclick="switchCohortSemester('sem3')" id="btn-cohort-sem3" class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem 3</button>
-              <button onclick="switchCohortSemester('sem4')" id="btn-cohort-sem4" class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary text-on-secondary shadow-sm transition-all">Sem 4 (Active)</button>
-              <button onclick="switchCohortSemester('cumulative')" id="btn-cohort-cumulative" class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Cumulative</button>
+            <div
+              class="flex items-center gap-1.5 overflow-x-auto self-start lg:self-center bg-surface-container-low p-1 rounded-xl border border-outline-variant/15">
+              <button onclick="switchCohortSemester('sem1')" id="btn-cohort-sem1"
+                class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem
+                1</button>
+              <button onclick="switchCohortSemester('sem2')" id="btn-cohort-sem2"
+                class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem
+                2</button>
+              <button onclick="switchCohortSemester('sem3')" id="btn-cohort-sem3"
+                class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Sem
+                3</button>
+              <button onclick="switchCohortSemester('sem4')" id="btn-cohort-sem4"
+                class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary text-on-secondary shadow-sm transition-all">Sem
+                4 (Active)</button>
+              <button onclick="switchCohortSemester('cumulative')" id="btn-cohort-cumulative"
+                class="cohort-sem-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface hover:bg-surface-container transition-all">Cumulative</button>
             </div>
           </div>
 
           <!-- 5 STATISTICAL KPI BENCHMARK CARDS -->
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-space-md">
-            
+
             <!-- 1. Class Rank -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-center justify-between text-on-surface-variant mb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider">Class Rank</span>
                 <span class="material-symbols-outlined text-base text-amber-500">emoji_events</span>
@@ -3660,9 +3718,11 @@
               <div class="my-1">
                 <div class="flex items-baseline gap-1.5">
                   <span id="cohort-kpi-rank" class="text-2xl font-extrabold text-on-surface">#7</span>
-                  <span id="cohort-kpi-batch-size" class="text-xs text-on-surface-variant font-medium">/ 160 Active</span>
+                  <span id="cohort-kpi-batch-size" class="text-xs text-on-surface-variant font-medium">/ 160
+                    Active</span>
                 </div>
-                <p id="cohort-kpi-percentile-badge" class="text-[11px] text-emerald-600 font-semibold mt-0.5">Top 4.3% (95.7th %ile)</p>
+                <p id="cohort-kpi-percentile-badge" class="text-[11px] text-emerald-600 font-semibold mt-0.5">Top 4.3%
+                  (95.7th %ile)</p>
               </div>
               <div class="pt-2 border-t border-outline-variant/10 flex items-center justify-between text-[11px]">
                 <span class="text-on-surface-variant">Progression</span>
@@ -3671,7 +3731,8 @@
             </div>
 
             <!-- 2. CGPA vs Mean -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-center justify-between text-on-surface-variant mb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider">CGPA vs Mean</span>
                 <span class="material-symbols-outlined text-base text-blue-600">query_stats</span>
@@ -3681,7 +3742,8 @@
                   <span id="cohort-kpi-cgpa" class="text-2xl font-extrabold text-blue-600">8.82</span>
                   <span id="cohort-kpi-mean" class="text-xs text-on-surface-variant font-medium">Avg: 7.42</span>
                 </div>
-                <p id="cohort-kpi-delta" class="text-[11px] text-emerald-600 font-semibold mt-0.5">+1.40 Above Cohort Mean</p>
+                <p id="cohort-kpi-delta" class="text-[11px] text-emerald-600 font-semibold mt-0.5">+1.40 Above Cohort
+                  Mean</p>
               </div>
               <div class="pt-2 border-t border-outline-variant/10 flex items-center justify-between text-[11px]">
                 <span class="text-on-surface-variant">Cohort Median</span>
@@ -3690,7 +3752,8 @@
             </div>
 
             <!-- 3. Cohort Topper -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-center justify-between text-on-surface-variant mb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider">Batch Topper</span>
                 <span class="material-symbols-outlined text-base text-purple-600">military_tech</span>
@@ -3700,7 +3763,8 @@
                   <span id="cohort-kpi-highest" class="text-2xl font-extrabold text-on-surface">9.48</span>
                   <span class="text-xs text-on-surface-variant font-medium">CGPA</span>
                 </div>
-                <p id="cohort-kpi-gap" class="text-[11px] text-on-surface-variant font-medium mt-0.5">-0.66 to Rank #1</p>
+                <p id="cohort-kpi-gap" class="text-[11px] text-on-surface-variant font-medium mt-0.5">-0.66 to Rank #1
+                </p>
               </div>
               <div class="pt-2 border-t border-outline-variant/10 flex items-center justify-between text-[11px]">
                 <span class="text-on-surface-variant">Top 10% Cutoff</span>
@@ -3709,7 +3773,8 @@
             </div>
 
             <!-- 4. Attendance Benchmark -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-center justify-between text-on-surface-variant mb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider">Attendance Rate</span>
                 <span class="material-symbols-outlined text-base text-emerald-600">event_available</span>
@@ -3728,7 +3793,8 @@
             </div>
 
             <!-- 5. Academic Pace & Standing -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 col-span-2 md:col-span-1 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm border border-outline-variant/15 col-span-2 md:col-span-1 flex flex-col justify-between">
               <div class="flex items-center justify-between text-on-surface-variant mb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider">Pace &amp; Honors</span>
                 <span class="material-symbols-outlined text-base text-indigo-600">verified</span>
@@ -3750,31 +3816,43 @@
 
           <!-- TWO GRAPHICAL VISUALIZATIONS ROW -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
-            
+
             <!-- Graph 1: CGPA Bell Curve & Gaussian Distribution -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-start justify-between mb-2">
                 <div>
-                  <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Cohort CGPA Bell Curve &amp; Grade Distribution</h3>
-                  <p class="text-[11px] text-on-surface-variant">Gaussian normal distribution across 160 active CSE cohort students.</p>
+                  <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Cohort CGPA Bell Curve
+                    &amp; Grade Distribution</h3>
+                  <p class="text-[11px] text-on-surface-variant">Gaussian normal distribution across 160 active CSE
+                    cohort students.</p>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200 shrink-0">Nabhya: 8.82</span>
+                <span
+                  class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200 shrink-0">Nabhya:
+                  8.82</span>
               </div>
-              <div id="cohort-bell-curve-container" class="w-full flex flex-col items-center justify-center min-h-[230px]">
+              <div id="cohort-bell-curve-container"
+                class="w-full flex flex-col items-center justify-center min-h-[230px]">
                 <!-- Dynamic SVG Bell Curve -->
               </div>
             </div>
 
             <!-- Graph 2: Subject-Wise Benchmark Comparison (Grouped Bar Chart) -->
-            <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div class="flex items-start justify-between mb-2">
                 <div>
-                  <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Subject-Wise Benchmark Comparison</h3>
-                  <p class="text-[11px] text-on-surface-variant">Comparing Nabhya's marks against Class Average and Batch Topper.</p>
+                  <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Subject-Wise Benchmark
+                    Comparison</h3>
+                  <p class="text-[11px] text-on-surface-variant">Comparing Nabhya's marks against Class Average and
+                    Batch Topper.</p>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-xs font-semibold shrink-0">Scale: 0–100%</span>
+                <span
+                  class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface text-xs font-semibold shrink-0">Scale:
+                  0–100%</span>
               </div>
-              <div id="cohort-grouped-bars-container" class="w-full flex flex-col items-center justify-center min-h-[230px]">
+              <div id="cohort-grouped-bars-container"
+                class="w-full flex flex-col items-center justify-center min-h-[230px]">
                 <!-- Dynamic SVG Grouped Bar Chart -->
               </div>
             </div>
@@ -3782,22 +3860,31 @@
           </div>
 
           <!-- SUBJECT BENCHMARK COMPARATIVE LEDGER (TABLE) -->
-          <div class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
+          <div
+            class="bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col gap-space-md">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h3 class="font-headline-sm font-bold text-on-surface text-sm sm:text-base">Subject Benchmark Comparative Ledger</h3>
-                <p class="text-xs text-on-surface-variant">Course-wise comparison against 160 active CSE cohort students for <span id="cohort-ledger-term-label" class="font-semibold text-on-surface">Semester 4 (2nd Year - Active)</span></p>
+                <h3 class="font-headline-sm font-bold text-on-surface text-sm sm:text-base">Subject Benchmark
+                  Comparative Ledger</h3>
+                <p class="text-xs text-on-surface-variant">Course-wise comparison against 160 active CSE cohort students
+                  for <span id="cohort-ledger-term-label" class="font-semibold text-on-surface">Semester 4 (2nd Year -
+                    Active)</span></p>
               </div>
               <div class="flex items-center gap-2 self-start sm:self-center">
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-surface-container-low border border-outline-variant/15 text-on-surface-variant font-medium">Cohort Mean: <strong class="text-on-surface">75.1%</strong></span>
-                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 font-bold">Nabhya: <strong>87.4%</strong> (+12.3%)</span>
+                <span
+                  class="text-[11px] px-2.5 py-1 rounded-lg bg-surface-container-low border border-outline-variant/15 text-on-surface-variant font-medium">Cohort
+                  Mean: <strong class="text-on-surface">75.1%</strong></span>
+                <span
+                  class="text-[11px] px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 font-bold">Nabhya:
+                  <strong>87.4%</strong> (+12.3%)</span>
               </div>
             </div>
-            
+
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr class="bg-surface-container-low/70 text-on-surface-variant text-[11px] uppercase tracking-wider font-bold border-b border-outline-variant/20">
+                  <tr
+                    class="bg-surface-container-low/70 text-on-surface-variant text-[11px] uppercase tracking-wider font-bold border-b border-outline-variant/20">
                     <th class="py-2.5 px-3">Subject Code &amp; Title</th>
                     <th class="py-2.5 px-3 text-center">Credits</th>
                     <th class="py-2.5 px-3 text-center">Nabhya's Score</th>
@@ -3817,80 +3904,99 @@
 
           <!-- BOTTOM ROW: COHORT TOP 10 LEADERBOARD & DIAGNOSTIC INSIGHTS (2 COLS) -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
-            
+
             <!-- Left: Top 10 Cohort Leaderboard (5 cols) -->
-            <div class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">B.Tech CSE Class of 2028 Leaderboard</h3>
-                    <p class="text-[11px] text-on-surface-variant">Top 10 academic achievers based on cumulative CGPA.</p>
+                    <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">B.Tech CSE Class of 2028
+                      Leaderboard</h3>
+                    <p class="text-[11px] text-on-surface-variant">Top 10 academic achievers based on cumulative CGPA.
+                    </p>
                   </div>
-                  <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20 text-[11px] font-bold">Top 6%</span>
+                  <span
+                    class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/20 text-[11px] font-bold">Top
+                    6%</span>
                 </div>
                 <div id="cohort-leaderboard-list" class="flex flex-col gap-2 mt-3">
                   <!-- Populated by JS -->
                 </div>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between text-[11px] text-on-surface-variant">
+              <div
+                class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between text-[11px] text-on-surface-variant">
                 <span>Total CSE Cohort: <strong>300 Students</strong></span>
                 <span class="text-blue-600 font-bold">Nabhya is in Top 2.3% of 300</span>
               </div>
             </div>
 
             <!-- Right: Diagnostic Strategic Strengths Matrix (7 cols) -->
-            <div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+            <div
+              class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-md sm:p-space-lg shadow-sm border border-outline-variant/15 flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Cohort Strategic Strengths &amp; Insights</h3>
-                    <p class="text-[11px] text-on-surface-variant">Diagnostic assessment of Nabhya's competitive positioning.</p>
+                    <h3 class="font-headline-sm text-sm sm:text-base font-bold text-on-surface">Cohort Strategic
+                      Strengths &amp; Insights</h3>
+                    <p class="text-[11px] text-on-surface-variant">Diagnostic assessment of Nabhya's competitive
+                      positioning.</p>
                   </div>
-                  <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold">Academic Insights</span>
+                  <span
+                    class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold">Academic
+                    Insights</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
-                  
-                  <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
+
+                  <div
+                    class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
                     <div class="flex items-center gap-2 text-indigo-600">
                       <span class="material-symbols-outlined text-lg">emoji_events</span>
                       <h4 class="text-xs font-bold text-on-surface">Domain Superiority</h4>
                     </div>
                     <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                      Core CS Algorithms (94th %ile) and Networks Lab (97.5th %ile) place Nabhya among the top 10 practical coders across the entire CSE cohort.
+                      Core CS Algorithms (94th %ile) and Networks Lab (97.5th %ile) place Nabhya among the top 10
+                      practical coders across the entire CSE cohort.
                     </p>
                     <span class="text-[10px] font-bold text-emerald-600 mt-1">High Practical Competency ★</span>
                   </div>
 
-                  <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
+                  <div
+                    class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
                     <div class="flex items-center gap-2 text-emerald-600">
                       <span class="material-symbols-outlined text-lg">trending_up</span>
                       <h4 class="text-xs font-bold text-on-surface">Semester Momentum</h4>
                     </div>
                     <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                      Continuous SGPA progression from 8.52 (Sem 1) ➔ 8.74 (Sem 2) ➔ 8.95 (Sem 3) ➔ 9.05 (Sem 4) ranks in the top 5% steepest improvements.
+                      Continuous SGPA progression from 8.52 (Sem 1) ➔ 8.74 (Sem 2) ➔ 8.95 (Sem 3) ➔ 9.05 (Sem 4) ranks
+                      in the top 5% steepest improvements.
                     </p>
                     <span class="text-[10px] font-bold text-emerald-600 mt-1">+0.53 Growth Acceleration ▲</span>
                   </div>
 
-                  <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
+                  <div
+                    class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
                     <div class="flex items-center gap-2 text-purple-600">
                       <span class="material-symbols-outlined text-lg">flag</span>
                       <h4 class="text-xs font-bold text-on-surface">Podium Target: Top 3</h4>
                     </div>
                     <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                      The gap to Rank #3 (9.22 CGPA) is currently 0.40 grade points. Maintaining ≥ 9.20 SGPA in Semester 5 electives positions Nabhya directly on the podium.
+                      The gap to Rank #3 (9.22 CGPA) is currently 0.40 grade points. Maintaining ≥ 9.20 SGPA in Semester
+                      5 electives positions Nabhya directly on the podium.
                     </p>
                     <span class="text-[10px] font-bold text-purple-600 mt-1">Target Roadmap Defined 🎯</span>
                   </div>
 
-                  <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
+                  <div
+                    class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/15 flex flex-col gap-1.5">
                     <div class="flex items-center gap-2 text-blue-600">
                       <span class="material-symbols-outlined text-lg">shield</span>
                       <h4 class="text-xs font-bold text-on-surface">Attendance Immunity</h4>
                     </div>
                     <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                      Current 91.4% attendance provides a +16.4% safety buffer above the university's 75.0% threshold. Zero risk of attendance condonation penalties.
+                      Current 91.4% attendance provides a +16.4% safety buffer above the university's 75.0% threshold.
+                      Zero risk of attendance condonation penalties.
                     </p>
                     <span class="text-[10px] font-bold text-blue-600 mt-1">Exemplary Attendance Record ✓</span>
                   </div>
@@ -3899,8 +4005,10 @@
               </div>
 
               <div class="mt-4 pt-3 border-t border-outline-variant/15 flex items-center justify-between text-xs">
-                <span class="text-on-surface-variant text-[11px]">Academic Advisor: <strong>Dr. R. K. Sharma</strong></span>
-                <button onclick="showToast('Official Cohort Standing Letter requested from Dean of Academics')" class="px-3 py-1.5 rounded-lg bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-all flex items-center gap-1.5 shadow-sm">
+                <span class="text-on-surface-variant text-[11px]">Academic Advisor: <strong>Dr. R. K.
+                    Sharma</strong></span>
+                <button onclick="showToast('Official Cohort Standing Letter requested from Dean of Academics')"
+                  class="px-3 py-1.5 rounded-lg bg-secondary text-on-secondary text-xs font-semibold hover:bg-secondary/90 transition-all flex items-center gap-1.5 shadow-sm">
                   <span class="material-symbols-outlined text-sm">download</span>
                   <span>Export Benchmark Report</span>
                 </button>
@@ -5203,7 +5311,7 @@
         sublink.className = "sidebar-sublink flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs font-medium text-on-primary-container hover:text-on-primary hover:bg-surface-container-highest/10 transition-all";
       });
       const activeSublink = document.getElementById(`subnav-${groupName}-${currentActiveSub}`) ||
-                            (currentActiveSub === 'cohort' ? document.getElementById(`subnav-${groupName}-benchmark`) : null);
+        (currentActiveSub === 'cohort' ? document.getElementById(`subnav-${groupName}-benchmark`) : null);
       if (activeSublink) {
         activeSublink.className = "sidebar-sublink flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary/25 text-on-primary border-l-2 border-secondary transition-all";
       }
@@ -7292,7 +7400,7 @@
         const barH = (val / 100) * plotH;
         const x = padLeft + i * colW + (colW - barW) / 2;
         const y = padTop + plotH - barH;
-        const label = c.shortCode || c.code || `S${i+1}`;
+        const label = c.shortCode || c.code || `S${i + 1}`;
 
         bars += `
           <g class="transition-all hover:opacity-90 cursor-pointer">
@@ -8232,19 +8340,19 @@
             <rect x="${xUser.toFixed(1)}" y="${yUser.toFixed(1)}" width="${barW}" height="${hUser.toFixed(1)}" rx="3" fill="#2563eb">
               <title>${sub.name} - Nabhya: ${sub.score}%</title>
             </rect>
-            <text x="${(xUser + barW/2).toFixed(1)}" y="${(yUser - 3).toFixed(1)}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">${Math.round(sub.score)}</text>
+            <text x="${(xUser + barW / 2).toFixed(1)}" y="${(yUser - 3).toFixed(1)}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">${Math.round(sub.score)}</text>
 
             <!-- Class Average Bar (Slate) -->
             <rect x="${xAvg.toFixed(1)}" y="${yAvg.toFixed(1)}" width="${barW}" height="${hAvg.toFixed(1)}" rx="3" fill="#94a3b8">
               <title>${sub.name} - Class Avg: ${sub.avg}%</title>
             </rect>
-            <text x="${(xAvg + barW/2).toFixed(1)}" y="${(yAvg - 3).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="600" fill="#64748b">${Math.round(sub.avg)}</text>
+            <text x="${(xAvg + barW / 2).toFixed(1)}" y="${(yAvg - 3).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="600" fill="#64748b">${Math.round(sub.avg)}</text>
 
             <!-- Batch Topper Bar (Emerald) -->
             <rect x="${xHigh.toFixed(1)}" y="${yHigh.toFixed(1)}" width="${barW}" height="${hHigh.toFixed(1)}" rx="3" fill="#10b981">
               <title>${sub.name} - Top Score: ${sub.high}%</title>
             </rect>
-            <text x="${(xHigh + barW/2).toFixed(1)}" y="${(yHigh - 3).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="600" fill="#047857">${Math.round(sub.high)}</text>
+            <text x="${(xHigh + barW / 2).toFixed(1)}" y="${(yHigh - 3).toFixed(1)}" text-anchor="middle" font-size="8" font-weight="600" fill="#047857">${Math.round(sub.high)}</text>
 
             <!-- Subject Code Label -->
             <text x="${groupCenterX.toFixed(1)}" y="${(baseLineY + 16).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="#1e293b">${escapeHtml(sub.code)}</text>
@@ -8285,10 +8393,10 @@
       tbody.innerHTML = data.subjects.map(sub => {
         const delta = (sub.score - sub.avg).toFixed(1);
         const isPos = sub.score >= sub.avg;
-        const deltaBadge = isPos 
+        const deltaBadge = isPos
           ? `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-700 border border-emerald-500/20">+${delta}%</span>`
           : `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-500/10 text-red-700 border border-red-500/20">${delta}%</span>`;
-        
+
         return `
           <tr class="hover:bg-surface-container-low/60 transition-colors">
             <td class="py-2.5 px-3">
